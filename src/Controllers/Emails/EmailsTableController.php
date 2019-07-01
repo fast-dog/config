@@ -3,8 +3,7 @@
 namespace FastDog\Config\Controllers\Emails;
 
 
-
-use FastDog\Config\Entity\Emails;
+use FastDog\Config\Models\Emails;
 use FastDog\Core\Http\Controllers\Controller;
 use FastDog\Core\Table\Interfaces\TableControllerInterface;
 use FastDog\Core\Table\Traits\TableTrait;
@@ -28,7 +27,7 @@ class EmailsTableController extends Controller implements TableControllerInterfa
     /**
      * Модель по которой будет осуществляться выборка данных
      *
-     * @var \FastDog\Config\Entity\Emails|null $model
+     * @var \FastDog\Config\Models\Emails|null $model
      */
     protected $model = null;
 

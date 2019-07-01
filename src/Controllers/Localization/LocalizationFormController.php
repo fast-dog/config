@@ -2,7 +2,8 @@
 
 namespace FastDog\Config\Controllers\Localization;
 
-use FastDog\Config\Entity\Translate;
+
+use FastDog\Config\Models\Translate;
 use FastDog\Core\Form\Interfaces\FormControllerInterface;
 use FastDog\Core\Form\Traits\FormControllerTrait;
 use FastDog\Core\Http\Controllers\Controller;

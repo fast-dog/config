@@ -3,7 +3,8 @@
 namespace FastDog\Config\Controllers\Emails;
 
 
-use FastDog\Config\Entity\Emails;
+
+use FastDog\Config\Models\Emails;
 use FastDog\Core\Form\Interfaces\FormControllerInterface;
 use FastDog\Core\Form\Traits\FormControllerTrait;
 use FastDog\Core\Http\Controllers\Controller;

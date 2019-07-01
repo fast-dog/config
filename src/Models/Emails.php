@@ -3,9 +3,10 @@
 namespace FastDog\Config\Models;
 
 
-use App\Core\Media\Interfaces\MediaInterface;
-use App\Core\Media\Traits\MediaTraits;
+
 use FastDog\Config\Events\MailAdminPrepare;
+use FastDog\Core\Media\Interfaces\MediaInterface;
+use FastDog\Core\Media\Traits\MediaTraits;
 use FastDog\Core\Models\BaseModel;
 use FastDog\Core\Models\DomainManager;
 use FastDog\Core\Properties\BaseProperties;

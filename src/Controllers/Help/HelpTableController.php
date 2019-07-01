@@ -3,7 +3,7 @@
 namespace FastDog\Config\Controllers\Help;
 
 
-use FastDog\Config\Entity\Help;
+use FastDog\Config\Models\ConfigHelp;
 use FastDog\Core\Http\Controllers\Controller;
 use FastDog\Core\Table\Interfaces\TableControllerInterface;
 use FastDog\Core\Table\Traits\TableTrait;
@@ -23,19 +23,18 @@ class HelpTableController extends Controller implements TableControllerInterface
 {
     use  TableTrait;
 
-
     /**
      * Модель по которой будет осуществляться выборка данных
      *
-     * @var \FastDog\Config\Entity\Help|null $model
+     * @var \FastDog\Config\Models\ConfigHelp|null $model
      */
     protected $model = null;
 
     /**
      * ContentController constructor.
-     * @param Help $model
+     * @param ConfigHelp $model
      */
-    public function __construct(Help $model)
+    public function __construct(ConfigHelp $model)
     {
         parent::__construct();
         $this->model = $model;

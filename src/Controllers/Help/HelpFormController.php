@@ -2,7 +2,7 @@
 
 namespace FastDog\Config\Controllers\Help;
 
-use FastDog\Config\Entity\Help;
+use FastDog\Config\Models\ConfigHelp;
 use FastDog\Core\Form\Interfaces\FormControllerInterface;
 use FastDog\Core\Form\Traits\FormControllerTrait;
 use FastDog\Core\Http\Controllers\Controller;
@@ -23,9 +23,9 @@ class HelpFormController extends Controller implements FormControllerInterface
 
     /**
      * HelpFormController constructor.
-     * @param Help $model
+     * @param ConfigHelp $model
      */
-    public function __construct(Help $model)
+    public function __construct(ConfigHelp $model)
     {
         $this->model = $model;
         $this->page_title = trans('app.Помощь администраторам');

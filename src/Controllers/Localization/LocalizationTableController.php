@@ -2,8 +2,7 @@
 namespace FastDog\Config\Controllers\Localization;
 
 
-
-use FastDog\Config\Entity\Translate;
+use FastDog\Config\Models\Translate;
 use FastDog\Core\Http\Controllers\Controller;
 use FastDog\Core\Table\Interfaces\TableControllerInterface;
 use FastDog\Core\Table\Traits\TableTrait;
@@ -23,11 +22,10 @@ class LocalizationTableController extends Controller implements TableControllerI
 {
     use  TableTrait;
 
-
     /**
      * Модель по которой будет осуществляться выборка данных
      *
-     * @var \FastDog\Config\Entity\Translate|null $model
+     * @var \FastDog\Config\Models\Translate|null $model
      */
     protected $model = null;
 

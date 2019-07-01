@@ -2,13 +2,14 @@
 namespace FastDog\Config\Controllers\Components;
 
 
-use App\Core\Module\Components;
+
 use FastDog\Config\Events\Components\ComponentItemAfterSave;
 use FastDog\Config\Events\Components\ComponentItemBeforeSave;
 use FastDog\Config\Request\AddSiteModule;
 use FastDog\Core\Form\Interfaces\FormControllerInterface;
 use FastDog\Core\Form\Traits\FormControllerTrait;
 use FastDog\Core\Http\Controllers\Controller;
+use FastDog\Core\Module\Components;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 

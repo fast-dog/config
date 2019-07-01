@@ -3,10 +3,9 @@
 namespace FastDog\Config\Controllers\Components;
 
 
-use App\Core\Module\Components;
-
 use FastDog\Config\Events\Components\ComponentItemsAdminPrepare as ComponentsItemsAdminPrepare;
 use FastDog\Core\Http\Controllers\Controller;
+use FastDog\Core\Module\Components;
 use FastDog\Core\Table\Interfaces\TableControllerInterface;
 use FastDog\Core\Table\Traits\TableTrait;
 use Illuminate\Database\Eloquent\Model;
