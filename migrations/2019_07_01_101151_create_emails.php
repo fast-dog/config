@@ -22,10 +22,10 @@ class CreateEmails extends Migration
                 $table->string(Emails::NAME)->comment('Название');
                 $table->string(Emails::ALIAS)->comment('Псевдоним');
                 $table->text(Emails::TEXT)->comment('Текст шаблона');
-                $table->json(Emails::DATA)->comment('Дополнительные параметры');
+                $table->json(Emails::DATA)->comment('Дополнительные параметры')->nullable();
                 $table->tinyInteger(Emails::STATE)->default(Emails::STATE_NOT_PUBLISHED)->comment('Состояние');
                 $table->char(Emails::SITE_ID, 3)->default('000');
-                $table->string('type', 45);
+                $table->string('type', 45)->nullable();
                 $table->timestamps();
                 $table->softDeletes();
                 $table->index([Emails::NAME, Emails::ALIAS], 'IDX_system_emails_name');
