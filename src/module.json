@@ -1,0 +1,90 @@
+{
+  "version": "0.2.0",
+  "name": "Параметры",
+  "description": "Поддержка дополнительных доменов, настройка учутных записей, кэширования, сбор статистики и т.д.",
+  "date": "17.12.2016",
+  "author": "Андрей Мартынов",
+  "priority": 400,
+  "route": {
+    "name": "<i class=\"fa fa-gears\"></i><span class=\"nav-label\">Параметры</span><span class=\"fa arrow\"></span>",
+    "route": "/config",
+    "activeClass": "active",
+    "route_name": "users",
+    "parent_route": "",
+    "access": [
+      "001"
+    ],
+    "children": [
+      {
+        "name": "<i class=\"fa fa-globe\"></i> Домены",
+        "route": "/config/www",
+        "access": [
+          "001"
+        ]
+      },
+      {
+        "name": "<i class=\"fa fa-cubes\"></i> Модули",
+        "route": "/config/modules",
+        "access": [
+          "001"
+        ]
+      },
+      {
+        "name": "<i class=\"fa fa-gears\"></i> Настройки",
+        "route": "/config/configuration",
+        "access": [
+          "001"
+        ]
+      },
+      {
+        "name": "<i class=\"fa fa-envelope-o\"></i> Почта",
+        "route": "/config/mails",
+        "access": [
+          "001"
+        ]
+      },
+      {
+        "name": "<i class=\"fa fa-envelope\"></i> Сообщения",
+        "route": "/config/messages",
+        "access": [
+          "001"
+        ]
+      },
+      {
+        "name": "<i class=\"fa fa-language\"></i> Локализация",
+        "route": "/config/translate",
+        "access": [
+          "001"
+        ]
+      },
+      {
+        "name": "<i class=\"fa fa-eur\"></i> Сервисы",
+        "route": "/config/services",
+        "access": [
+          "001"
+        ]
+      },
+      {
+        "name": "<i class=\"fa fa-life-bouy\"></i> Помощь",
+        "route": "/config/help",
+        "access": [
+          "001"
+        ]
+      }
+    ]
+  },
+  "source": {
+    "class": "App\\Modules\\Config\\Config"
+  },
+  "change_log": {
+    "0.2.0": "Модуль переведен на доработанные компоненты Администрирования, улучшена производительность и стабильность работы.",
+    "0.1.7": "Добавлен раздел: Помощь Администраторам",
+    "0.1.6": "Добавлены разделы: Локализация, Личные сообщения, Сервисы",
+    "0.1.5": "Переработан административный раздел, улучшена стабильность, добавлена поддержка Firefox",
+    "0.1.4": "Добавлена настройка почтовых сообщений",
+    "0.1.3": "Добавлена страница настроек",
+    "0.1.2": "Добавлена система контроля доступа ACL",
+    "0.1.1": "Добавлена система учета доменной принадлежности",
+    "0.1.0": "Модуль перенесен из репозиория"
+  }
+}
