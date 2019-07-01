@@ -31,10 +31,6 @@ class CreateSystemMessages extends Migration
             });
             DB::statement("ALTER TABLE `system_messages` comment 'Шаблоны почтовых сообщений'");
         }
-        Schema::create('system_messages', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->timestamps();
-        });
     }
 
     /**

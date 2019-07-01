@@ -11,6 +11,7 @@ namespace FastDog\Config;
 
 use App\Core\Module\Components;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 /**
  * Параметры скрипта
@@ -21,6 +22,13 @@ use Illuminate\Http\Request;
  */
 class Config
 {
+
+    /**
+     * Идентификатор модуля
+     *
+     * @const string
+     */
+    const MODULE_ID = 'config';
 
     /**
      * Параметры конфигурации описанные в module.json
@@ -78,6 +86,42 @@ class Config
      * @return array
      */
     public function getModuleInfo($includeTemplates = true)
+    {
+        $paths = Arr::first(\Config::get('view.paths'));
+        $templates_paths = $this->getTemplatesPaths();
+
+        return [
+            'id' => self::MODULE_ID,
+            'menu' => function () use ($paths, $templates_paths) {
+                $result = [];
+                foreach ($this->getMenuType() as $id => $item) {
+                    array_push($result, [
+                        'id' => $id,
+                        'name' => $item,
+                        'templates' => (isset($templates_paths[$id])) ? $this->getTemplates($paths . $templates_paths[$id]) : [],
+                        'class' => __CLASS__,
+                    ]);
+                }
+
+                return $result;
+            },
+            'templates_paths' => $templates_paths,
+            'module_type' => $this->getMenuType(),
+            'admin_menu' => function () {
+                return $this->getAdminMenuItems();
+            },
+            'access' => function () {
+                return [
+                    '000',
+                ];
+            },
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function getTemplatesPaths(): array
     {
         return [];
     }

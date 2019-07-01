@@ -3,6 +3,7 @@
 namespace FastDog\Config;
 
 
+use FastDog\Core\Models\ModuleManager;
 use Illuminate\Support\ServiceProvider as LaravelServiceProvider;
 
 class ConfigServiceProvider extends LaravelServiceProvider
@@ -25,6 +26,12 @@ class ConfigServiceProvider extends LaravelServiceProvider
         $this->handleRoutes();
         $this->handleMigrations();
         $this->handleLang();
+
+        /**
+         * @var $moduleManager ModuleManager
+         */
+        $moduleManager = \App::make(ModuleManager::class);
+        $moduleManager->pushModule(Config::MODULE_ID, (new Config())->getModuleInfo(true));
     }
 
     /**

@@ -15,62 +15,7 @@
       "001"
     ],
     "children": [
-      {
-        "name": "<i class=\"fa fa-globe\"></i> Домены",
-        "route": "/config/www",
-        "access": [
-          "001"
-        ]
-      },
-      {
-        "name": "<i class=\"fa fa-cubes\"></i> Модули",
-        "route": "/config/modules",
-        "access": [
-          "001"
-        ]
-      },
-      {
-        "name": "<i class=\"fa fa-gears\"></i> Настройки",
-        "route": "/config/configuration",
-        "access": [
-          "001"
-        ]
-      },
-      {
-        "name": "<i class=\"fa fa-envelope-o\"></i> Почта",
-        "route": "/config/mails",
-        "access": [
-          "001"
-        ]
-      },
-      {
-        "name": "<i class=\"fa fa-envelope\"></i> Сообщения",
-        "route": "/config/messages",
-        "access": [
-          "001"
-        ]
-      },
-      {
-        "name": "<i class=\"fa fa-language\"></i> Локализация",
-        "route": "/config/translate",
-        "access": [
-          "001"
-        ]
-      },
-      {
-        "name": "<i class=\"fa fa-eur\"></i> Сервисы",
-        "route": "/config/services",
-        "access": [
-          "001"
-        ]
-      },
-      {
-        "name": "<i class=\"fa fa-life-bouy\"></i> Помощь",
-        "route": "/config/help",
-        "access": [
-          "001"
-        ]
-      }
+
     ]
   },
   "source": {
