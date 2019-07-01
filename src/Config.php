@@ -203,37 +203,37 @@ class Config
 
         array_push($result['children'], [
             'icon' => 'fa-globe',
-            'name' => trans('user::interface.Домены'),
+            'name' => trans('config::interface.Домены'),
             'route' => '/configuration/domain',
         ]);
 
         array_push($result['children'], [
             'icon' => 'fa-cubes',
-            'name' => trans('user::interface.Компоненты'),
+            'name' => trans('config::interface.Компоненты'),
             'route' => '/configuration/components',
         ]);
 
         array_push($result['children'], [
             'icon' => 'fa-envelope',
-            'name' => trans('user::interface.Почтовые события'),
+            'name' => trans('config::interface.Почтовые события'),
             'route' => '/configuration/emails',
         ]);
 
         array_push($result['children'], [
             'icon' => 'fa-language',
-            'name' => trans('user::interface.Локализация'),
+            'name' => trans('config::interface.Локализация'),
             'route' => '/configuration/localization',
         ]);
 
         array_push($result['children'], [
             'icon' => 'fa-life-bouy',
-            'name' => trans('user::interface.Помощь'),
+            'name' => trans('config::interface.Помощь'),
             'route' => '/configuration/help',
         ]);
 
         array_push($result['children'], [
             'icon' => 'fa-gears',
-            'name' => trans('user::interface.Параметры'),
+            'name' => trans('config::interface.Параметры'),
             'route' => '/configuration/parameters',
         ]);
 
