@@ -196,7 +196,7 @@ class Config
     {
         $result = [
             'icon' => 'fa-gears',
-            'name' => trans('config::interface.Настройки'),
+            'name' => trans('config::interface.Администрирование'),
             'route' => '/configuration',
             'children' => [],
         ];
@@ -233,7 +233,7 @@ class Config
 
         array_push($result['children'], [
             'icon' => 'fa-gears',
-            'name' => trans('config::interface.Параметры'),
+            'name' => trans('config::interface.Настройки'),
             'route' => '/configuration/parameters',
         ]);
 
