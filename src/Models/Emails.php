@@ -3,7 +3,6 @@
 namespace FastDog\Config\Models;
 
 
-
 use FastDog\Config\Events\MailAdminPrepare;
 use FastDog\Core\Media\Interfaces\MediaInterface;
 use FastDog\Core\Media\Traits\MediaTraits;
@@ -102,13 +101,13 @@ class Emails extends BaseModel implements TableModelInterface, PropertiesInterfa
 
         if (is_string($name)) {
             /**@var $tpl self */
-        $tpl = self::where(function (Builder $query) use ($name, $params) {
-            $query->where(self::ALIAS, $name);
-            $query->where(self::STATE, self::STATE_PUBLISHED);
-            if (isset($params[self::SITE_ID])) {
-                $query->where(self::SITE_ID, $params[self::SITE_ID]);
-            }
-        })->first();
+            $tpl = self::where(function (Builder $query) use ($name, $params) {
+                $query->where(self::ALIAS, $name);
+                $query->where(self::STATE, self::STATE_PUBLISHED);
+                if (isset($params[self::SITE_ID])) {
+                    $query->where(self::SITE_ID, $params[self::SITE_ID]);
+                }
+            })->first();
 
             if (isset($tpl->text)) {
                 $text = $tpl->text;
@@ -142,7 +141,7 @@ class Emails extends BaseModel implements TableModelInterface, PropertiesInterfa
             $params['title'] = $tpl->getParameterByFilterData(['name' => 'TITLE'], '');
             $params['title_header'] = $tpl->getParameterByFilterData(['name' => 'TITLE_HEADER'], '');
 
-            $result = \Mail::send('core::emails.system', $params,
+            $result = \Mail::send('core::email.system', $params,
                 function ($message) use ($tpl, $params) {
                     if (!isset($params['to'])) {
                         $params['to'] = $tpl->getParameterByFilterData(['name' => 'TO_ADDRESS'], null);
@@ -152,7 +151,7 @@ class Emails extends BaseModel implements TableModelInterface, PropertiesInterfa
                     $message->from($tpl->getParameterByFilterData(['name' => 'FROM_ADDRESS'], config('mail.from.address')),
                         $tpl->getParameterByFilterData(['name' => 'FROM_NAME'], config('mail.from.name')));
                     if (!isset($params['subject'])) {
-                    $message->subject($tpl->getParameterByFilterData(['name' => 'SUBJECT'], ''));
+                        $message->subject($tpl->getParameterByFilterData(['name' => 'SUBJECT'], ''));
                     } else {
                         $message->subject($params['subject']);
                     }
