@@ -142,7 +142,7 @@ class Emails extends BaseModel implements TableModelInterface, PropertiesInterfa
             $params['title'] = $tpl->getParameterByFilterData(['name' => 'TITLE'], '');
             $params['title_header'] = $tpl->getParameterByFilterData(['name' => 'TITLE_HEADER'], '');
 
-            $result = \Mail::send('emails.system', $params,
+            $result = \Mail::send('core::emails.system', $params,
                 function ($message) use ($tpl, $params) {
                     if (!isset($params['to'])) {
                         $params['to'] = $tpl->getParameterByFilterData(['name' => 'TO_ADDRESS'], null);
