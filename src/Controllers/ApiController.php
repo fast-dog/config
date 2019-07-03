@@ -11,7 +11,6 @@ use FastDog\Core\Models\DomainManager;
 use FastDog\Core\Models\Module;
 use FastDog\Core\Models\ModuleManager;
 use FastDog\User\Models\User;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -31,8 +30,6 @@ class ApiController extends Controller
     public function __construct()
     {
         parent::__construct();
-
-        $this->accessKey = strtolower(Config::class) . '::' . DomainManager::getSiteId() . '::guest';
     }
 
     /**
@@ -57,7 +54,7 @@ class ApiController extends Controller
         if ($item) {
             $data = $item->getData();
             \Event::fire(new HelpAdminPrepare($data, $item, $result));
-            $data[ConfigHelp::TEXT] .= '<br />' . trans('app.Дата обновления') . ': ' . $item->updated_at->format('d.m.Y H:i');
+            $data[ConfigHelp::TEXT] .= '<br />' . trans('config::interface.Дата обновления') . ': ' . $item->updated_at->format('d.m.Y H:i');
             array_push($result['items'], $data);
         }
 
@@ -69,6 +66,7 @@ class ApiController extends Controller
      *
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
+     * @deprecated
      */
     public function getAdminInfo(Request $request): JsonResponse
     {
@@ -84,12 +82,9 @@ class ApiController extends Controller
 
         $this->page_title = trans('app.Параметры');
         $this->breadcrumbs->push(['url' => '/config/modules', 'name' => trans('app.Настройки')]);
-
-        $items = Module::orderBy(Module::PRIORITY)->get();
         $modules = [];
-        foreach ($items as $item) {
-            $item->data = \GuzzleHttp\json_decode($item->data);
-
+        Module::orderBy(Module::PRIORITY)->get()->each(function (Module $item) use (&$modules) {
+            $item->data =  json_decode($item->data);
             array_push($modules, [
                 'id' => $item->id,
                 Module::NAME => $item->{Module::NAME},
@@ -97,12 +92,13 @@ class ApiController extends Controller
                 Module::VERSION => $item->{Module::VERSION},
                 'description' => $item->data->description,
             ]);
-        }
+        });
+        /** @var ModuleManager $module */
         $moduleManager = \App::make(ModuleManager::class);
-        /**
-         * @var $moduleManager ModuleManager
-         */
+
+
         $module = $moduleManager->getInstance('FastDog\Config\Config');
+
         /**
          * Параметры модуля
          */
@@ -116,7 +112,7 @@ class ApiController extends Controller
         /**
          * Список доступа ACL
          */
-        array_push($result['items'], Config::getAcl(DomainManager::getSiteId(), strtolower(Config::class)));
+        array_push($result['items'], []/*Config::getAcl(DomainManager::getSiteId(), strtolower(Config::class))*/);
 
         return $this->json($result, __METHOD__);
     }
