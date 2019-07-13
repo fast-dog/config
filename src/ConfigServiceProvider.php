@@ -42,6 +42,7 @@ class ConfigServiceProvider extends LaravelServiceProvider
     public function register(): void
     {
         $this->app->register(ConfigEventServiceProvider::class);
+        $this->app->register(AuthServiceProvider::class);
     }
 
     /**

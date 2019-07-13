@@ -40,7 +40,7 @@ class DomainTableController extends Controller implements TableControllerInterfa
         parent::__construct();
         $this->model = $model;
         $this->initTable();
-        $this->page_title = trans('app.Домены');
+        $this->page_title = trans('config::interface.Домены');
     }
 
     /**
@@ -62,9 +62,9 @@ class DomainTableController extends Controller implements TableControllerInterfa
     public function list(Request $request): JsonResponse
     {
         $result = self::paginate($request);
-        $this->breadcrumbs->push(['url' => false, 'name' => trans('app.Управление')]);
+        $this->breadcrumbs->push(['url' => false, 'name' => trans('config::interface.Домены')]);
 
-        \Event::fire(new DomainsItemsAdminPrepare($result, $result['items']));
+        event(new DomainsItemsAdminPrepare($result, $result['items']));
 
         return $this->json($result, __METHOD__);
     }
