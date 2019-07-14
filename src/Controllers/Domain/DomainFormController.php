@@ -44,7 +44,7 @@ class DomainFormController extends Controller implements FormControllerInterface
 
         $result = $this->getItemData($request);
         if ($this->item) {
-            $this->breadcrumbs->push(['url' => false, 'name' => $this->item->{BaseModel::NAME}]);
+            $this->breadcrumbs->push(['url' => false, 'name' => $this->item->{Domain::NAME}]);
         }
 
         return $this->json($result, __METHOD__);

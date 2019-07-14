@@ -2,9 +2,8 @@
 
 namespace FastDog\Config\Events;
 
-use App\Core\Interfaces\AdminPrepareEventInterface;
-use FastDog\Config\Entity\Domain;
-
+use FastDog\Core\Interfaces\AdminPrepareEventInterface;
+use FastDog\Core\Models\Domain;
 
 /**
  * Редактирование домена
@@ -12,6 +11,7 @@ use FastDog\Config\Entity\Domain;
  * @package FastDog\Config\Events
  * @version 0.2.0
  * @author Андрей Мартынов <d.g.dev482@gmail.com>
+ * @deprecated
  */
 class DomainsItemAdminPrepare implements AdminPrepareEventInterface
 {

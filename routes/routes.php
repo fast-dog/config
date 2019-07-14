@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 
 Route::group([
     'prefix' => config('core.admin_path', 'admin'),
-    'middleware' => ['web'],
+    'middleware' => ['web', FastDog\Admin\Http\Middleware\Admin::class],
 ], function () {
 
     $ctrl = '\FastDog\Config\Controllers\ConfigController';

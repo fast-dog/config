@@ -1,7 +1,7 @@
 <?php
 namespace FastDog\Config\Listeners;
 
-use FastDog\Config\Events\DomainsItemAdminPrepare as DomainsItemAdminPrepareEvent;
+use FastDog\Core\Events\DomainsItemAdminPrepare as DomainsItemAdminPrepareEvent;
 use FastDog\Core\Models\Domain;
 use FastDog\Core\Models\DomainManager;
 use FastDog\Core\Models\FormFieldTypes;
@@ -55,14 +55,14 @@ class DomainsItemSetEditForm
             'tabs' => (array)[
                 (object)[
                     'id' => 'catalog-item-general-tab',
-                    'name' => trans('app.Основная информация'),
+                    'name' => trans('config::forms.general.field.title'),
                     'active' => true,
                     'fields' => (array)[
                         [
                             'id' => Domain::NAME,
                             'type' => FormFieldTypes::TYPE_TEXT,
                             'name' => Domain::NAME,
-                            'label' => trans('app.Название'),
+                            'label' => trans('config::forms.general.field.name'),
                             'css_class' => 'col-sm-6',
                             'form_group' => false,
                             'required' => true,
@@ -72,7 +72,7 @@ class DomainsItemSetEditForm
                             'id' => Domain::URL,
                             'type' => FormFieldTypes::TYPE_TEXT,
                             'name' => Domain::URL,
-                            'label' => trans('app.Адрес сайта (URL)'),
+                            'label' => trans('config::forms.general.field.url'),
                             'css_class' => 'col-sm-6',
                             'required' => true,
                             'form_group' => false,
@@ -81,7 +81,7 @@ class DomainsItemSetEditForm
                             'id' => Domain::CODE,
                             'type' => FormFieldTypes::TYPE_TEXT,
                             'name' => Domain::CODE,
-                            'label' => trans('app.Идетнификатор домена'),
+                            'label' => trans('config::forms.general.field.code'),
                             'css_class' => 'col-sm-6',
                             'required' => true,
                             'form_group' => false,
@@ -90,7 +90,7 @@ class DomainsItemSetEditForm
                             'id' => Domain::SITE_ID,
                             'type' => FormFieldTypes::TYPE_SELECT,
                             'name' => Domain::SITE_ID,
-                            'label' => trans('app.Код сайта'),
+                            'label' => trans('config::forms.general.field.site_id'),
                             'css_class' => 'col-sm-6',
                             'items' => DomainManager::getAccessDomainList(),
                             'form_group' => false,
@@ -99,7 +99,7 @@ class DomainsItemSetEditForm
                             'id' => Domain::LANG,
                             'type' => FormFieldTypes::TYPE_SELECT,
                             'name' => Domain::LANG,
-                            'label' => trans('app.Локализация'),
+                            'label' => trans('config::forms.general.field.localization'),
                             'css_class' => 'col-sm-6',
                             'items' => DomainManager::getAllowLang(),
                             'required' => true,
@@ -111,7 +111,7 @@ class DomainsItemSetEditForm
                             'id' => Domain::STATE,
                             'type' => FormFieldTypes::TYPE_SELECT,
                             'name' => Domain::STATE,
-                            'label' => trans('app.Состояние'),
+                            'label' => trans('config::forms.general.field.state'),
                             'css_class' => 'col-sm-12',
                             'items' => Domain::getStatusList(),
                         ],
@@ -119,7 +119,7 @@ class DomainsItemSetEditForm
                             'id' => Domain::CREATED_AT,
                             'type' => FormFieldTypes::TYPE_DATE,
                             'name' => Domain::CREATED_AT,
-                            'label' => trans('app.Дата создания'),
+                            'label' => trans('config::forms.general.field.created_at'),
                             'css_class' => 'col-sm-12',
                             'form_group' => true,
                             'readonly' => true,
@@ -128,7 +128,7 @@ class DomainsItemSetEditForm
                             'id' => Domain::UPDATED_AT,
                             'type' => FormFieldTypes::TYPE_DATE,
                             'name' => Domain::UPDATED_AT,
-                            'label' => trans('app.Дата обновления'),
+                            'label' => trans('config::forms.general.field.updated_at'),
                             'css_class' => 'col-sm-12',
                             'form_group' => true,
                             'readonly' => true,

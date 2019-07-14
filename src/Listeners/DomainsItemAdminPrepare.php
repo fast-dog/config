@@ -2,11 +2,10 @@
 namespace FastDog\Config\Listeners;
 
 
-use FastDog\Config\Config;
 use FastDog\Core\Models\Domain;
 use FastDog\Core\Models\DomainManager;
 use Illuminate\Http\Request;
-use FastDog\Config\Events\DomainsItemAdminPrepare as DomainsItemAdminPrepareEvent;
+use FastDog\Core\Events\DomainsItemAdminPrepare as DomainsItemAdminPrepareEvent;
 
 
 /**

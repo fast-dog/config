@@ -15,7 +15,7 @@ class ConfigEventServiceProvider extends ServiceProvider
         'FastDog\Config\Events\DomainsItemsAdminPrepare' => [
             'FastDog\Config\Listeners\DomainsItemsAdminPrepare',
         ],
-        'FastDog\Config\Events\DomainsItemAdminPrepare' => [
+        'FastDog\Core\Events\DomainsItemAdminPrepare' => [
             'FastDog\Core\Listeners\AdminItemPrepare',// <-- Поля даты обновления и т.д.
             'FastDog\Config\Listeners\DomainsItemAdminPrepare',
             'FastDog\Config\Listeners\DomainsItemSetEditForm',// <-- Форма редактирования
