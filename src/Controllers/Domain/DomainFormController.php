@@ -30,7 +30,7 @@ class DomainFormController extends Controller implements FormControllerInterface
     public function __construct(Domain $model)
     {
         $this->model = $model;
-        $this->page_title = trans('app.Домены');
+        $this->page_title = trans('config::interface.Домены');
         parent::__construct();
     }
 
@@ -40,12 +40,15 @@ class DomainFormController extends Controller implements FormControllerInterface
      */
     public function getEditItem(Request $request): JsonResponse
     {
-        $this->breadcrumbs->push(['url' => '/config/domains', 'name' => trans('app.Управление')]);
+        $this->breadcrumbs->push(['url' => '/config/domains', 'name' => trans('config::interface.Домены')]);
 
         $result = $this->getItemData($request);
-        if ($this->item) {
-            $this->breadcrumbs->push(['url' => false, 'name' => $this->item->{Domain::NAME}]);
-        }
+
+        $this->breadcrumbs->push([
+            'url' => false,
+            'name' => ($this->item->id) ? $this->item->{Domain::NAME} : trans('config::forms.domain.new'),
+        ]);
+
 
         return $this->json($result, __METHOD__);
     }

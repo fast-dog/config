@@ -1,4 +1,5 @@
 <?php
+
 namespace FastDog\Config\Listeners;
 
 use FastDog\Core\Events\DomainsItemAdminPrepare as DomainsItemAdminPrepareEvent;
@@ -55,14 +56,14 @@ class DomainsItemSetEditForm
             'tabs' => (array)[
                 (object)[
                     'id' => 'catalog-item-general-tab',
-                    'name' => trans('config::forms.general.field.title'),
+                    'name' => trans('config::forms.domain.general.title'),
                     'active' => true,
                     'fields' => (array)[
                         [
                             'id' => Domain::NAME,
                             'type' => FormFieldTypes::TYPE_TEXT,
                             'name' => Domain::NAME,
-                            'label' => trans('config::forms.general.field.name'),
+                            'label' => trans('config::forms.domain.general.fields.name'),
                             'css_class' => 'col-sm-6',
                             'form_group' => false,
                             'required' => true,
@@ -72,7 +73,7 @@ class DomainsItemSetEditForm
                             'id' => Domain::URL,
                             'type' => FormFieldTypes::TYPE_TEXT,
                             'name' => Domain::URL,
-                            'label' => trans('config::forms.general.field.url'),
+                            'label' => trans('config::forms.domain.general.fields.url'),
                             'css_class' => 'col-sm-6',
                             'required' => true,
                             'form_group' => false,
@@ -81,7 +82,7 @@ class DomainsItemSetEditForm
                             'id' => Domain::CODE,
                             'type' => FormFieldTypes::TYPE_TEXT,
                             'name' => Domain::CODE,
-                            'label' => trans('config::forms.general.field.code'),
+                            'label' => trans('config::forms.domain.general.fields.code'),
                             'css_class' => 'col-sm-6',
                             'required' => true,
                             'form_group' => false,
@@ -90,7 +91,7 @@ class DomainsItemSetEditForm
                             'id' => Domain::SITE_ID,
                             'type' => FormFieldTypes::TYPE_SELECT,
                             'name' => Domain::SITE_ID,
-                            'label' => trans('config::forms.general.field.site_id'),
+                            'label' => trans('config::forms.domain.general.fields.site_id'),
                             'css_class' => 'col-sm-6',
                             'items' => DomainManager::getAccessDomainList(),
                             'form_group' => false,
@@ -99,7 +100,7 @@ class DomainsItemSetEditForm
                             'id' => Domain::LANG,
                             'type' => FormFieldTypes::TYPE_SELECT,
                             'name' => Domain::LANG,
-                            'label' => trans('config::forms.general.field.localization'),
+                            'label' => trans('config::forms.domain.general.fields.localization'),
                             'css_class' => 'col-sm-6',
                             'items' => DomainManager::getAllowLang(),
                             'required' => true,
@@ -111,7 +112,7 @@ class DomainsItemSetEditForm
                             'id' => Domain::STATE,
                             'type' => FormFieldTypes::TYPE_SELECT,
                             'name' => Domain::STATE,
-                            'label' => trans('config::forms.general.field.state'),
+                            'label' => trans('config::forms.domain.general.fields.state'),
                             'css_class' => 'col-sm-12',
                             'items' => Domain::getStatusList(),
                         ],
@@ -119,7 +120,7 @@ class DomainsItemSetEditForm
                             'id' => Domain::CREATED_AT,
                             'type' => FormFieldTypes::TYPE_DATE,
                             'name' => Domain::CREATED_AT,
-                            'label' => trans('config::forms.general.field.created_at'),
+                            'label' => trans('config::forms.domain.general.fields.created_at'),
                             'css_class' => 'col-sm-12',
                             'form_group' => true,
                             'readonly' => true,
@@ -128,7 +129,7 @@ class DomainsItemSetEditForm
                             'id' => Domain::UPDATED_AT,
                             'type' => FormFieldTypes::TYPE_DATE,
                             'name' => Domain::UPDATED_AT,
-                            'label' => trans('config::forms.general.field.updated_at'),
+                            'label' => trans('config::forms.domain.general.fields.updated_at'),
                             'css_class' => 'col-sm-12',
                             'form_group' => true,
                             'readonly' => true,
@@ -138,7 +139,7 @@ class DomainsItemSetEditForm
                 ],
                 (object)[
                     'id' => 'catalog-item-extend-tab',
-                    'name' => trans('app.Дополнительно'),
+                    'name' => trans('config::forms.extend.title'),
                     'fields' => [
                         [
                             'type' => FormFieldTypes::TYPE_COMPONENT_SAMPLE_PROPERTIES,
