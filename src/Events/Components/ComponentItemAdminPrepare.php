@@ -2,10 +2,10 @@
 
 namespace FastDog\Config\Events\Components;
 
-use App\Core\Interfaces\AdminPrepareEventInterface;
-use App\Core\Module\Components;
-use FastDog\Config\Entity\Domain;
 
+use FastDog\Core\Interfaces\AdminPrepareEventInterface;
+use FastDog\Core\Models\Components;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * Редактирование публичного модуля
@@ -28,7 +28,7 @@ class ComponentItemAdminPrepare implements AdminPrepareEventInterface
     protected $result = [];
 
     /**
-     * @var Domain $item
+     * @var Components $item
      */
     protected $item;
 
@@ -48,7 +48,7 @@ class ComponentItemAdminPrepare implements AdminPrepareEventInterface
     /**
      * @return Components
      */
-    public function getItem()
+    public function getItem(): Model
     {
         return $this->item;
     }
@@ -56,7 +56,7 @@ class ComponentItemAdminPrepare implements AdminPrepareEventInterface
     /**
      * @return array
      */
-    public function getData()
+    public function getData(): array
     {
         return $this->data;
     }
@@ -64,7 +64,7 @@ class ComponentItemAdminPrepare implements AdminPrepareEventInterface
     /**
      * @param $data
      */
-    public function setData($data)
+    public function setData(array $data): void
     {
         $this->data = $data;
     }
@@ -72,16 +72,15 @@ class ComponentItemAdminPrepare implements AdminPrepareEventInterface
     /**
      * @return array
      */
-    public function getResult()
+    public function getResult(): array
     {
         return $this->result;
     }
 
     /**
-     * @param $result
-     * @return void
+     * @param array $result
      */
-    public function setResult($result)
+    public function setResult(array $result): void
     {
         $this->result = $result;
     }

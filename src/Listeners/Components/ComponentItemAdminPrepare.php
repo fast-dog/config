@@ -2,8 +2,9 @@
 namespace FastDog\Config\Listeners\Components;
 
 
-use App\Core\Module\Components;
+
 use FastDog\Config\Events\Components\ComponentItemAdminPrepare as PublicModuleItemAdminPrepareEvent;
+use FastDog\Core\Models\Components;
 use FastDog\Media\Models\GalleryItem;
 use Illuminate\Http\Request;
 
