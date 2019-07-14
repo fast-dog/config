@@ -1,6 +1,6 @@
 <?php
 
-namespace FastDog\Config\Controllers\Localization;
+namespace FastDog\Config\Http\Controllers\Localization;
 
 
 use FastDog\Config\Models\Translate;
@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 /**
  * Локализация - форма
  *
- * @package FastDog\Config\Controllers\Localization
+ * @package FastDog\Config\Http\Controllers\Localization
  * @version 0.2.0
  * @author Андрей Мартынов <d.g.dev482@gmail.com>
  */

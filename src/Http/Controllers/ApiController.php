@@ -1,13 +1,11 @@
 <?php
 
-namespace FastDog\Config\Controllers;
+namespace FastDog\Config\Http\Controllers;
 
 
-use FastDog\Config\Config;
 use FastDog\Config\Events\HelpAdminPrepare;
 use FastDog\Config\Models\ConfigHelp;
 use FastDog\Core\Http\Controllers\Controller;
-use FastDog\Core\Models\DomainManager;
 use FastDog\Core\Models\Module;
 use FastDog\Core\Models\ModuleManager;
 use FastDog\User\Models\User;
@@ -17,7 +15,7 @@ use Illuminate\Http\Request;
 /**
  * API
  *
- * @package FastDog\Config\Controllers
+ * @package FastDog\Config\Http\Controllers
  * @version 0.2.0
  * @author Андрей Мартынов <d.g.dev482@gmail.com>
  */
@@ -53,7 +51,7 @@ class ApiController extends Controller
 
         if ($item) {
             $data = $item->getData();
-            \Event::fire(new HelpAdminPrepare($data, $item, $result));
+            event(new HelpAdminPrepare($data, $item, $result));
             $data[ConfigHelp::TEXT] .= '<br />' . trans('config::interface.Дата обновления') . ': ' . $item->updated_at->format('d.m.Y H:i');
             array_push($result['items'], $data);
         }

@@ -1,6 +1,6 @@
 <?php
 
-namespace FastDog\Config\Controllers\Domain;
+namespace FastDog\Config\Http\Controllers\Domain;
 
 
 use FastDog\Config\Request\AddDomain;
@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
 /**
  * Домены - форма редактирования
  *
- * @package FastDog\Config\Controllers\Domain
+ * @package FastDog\Config\Http\Controllers\Domain
  * @version 0.2.0
  * @author Андрей Мартынов <d.g.dev482@gmail.com>
  */

@@ -1,6 +1,6 @@
 <?php
 
-namespace FastDog\Config\Controllers\Help;
+namespace FastDog\Config\Http\Controllers\Help;
 
 use FastDog\Config\Models\ConfigHelp;
 use FastDog\Core\Form\Interfaces\FormControllerInterface;
@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 /**
  * Помощь администраторам - форма редактирования
  *
- * @package FastDog\Config\Controllers\Help
+ * @package FastDog\Config\Http\Controllers\Help
  * @version 0.2.0
  * @author Андрей Мартынов <d.g.dev482@gmail.com>
  */

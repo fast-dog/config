@@ -139,7 +139,7 @@ class DomainsItemSetEditForm
                 ],
                 (object)[
                     'id' => 'catalog-item-extend-tab',
-                    'name' => trans('config::forms.extend.title'),
+                    'name' => trans('config::forms.domain.extend.title'),
                     'fields' => [
                         [
                             'type' => FormFieldTypes::TYPE_COMPONENT_SAMPLE_PROPERTIES,

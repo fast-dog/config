@@ -1,10 +1,11 @@
 <?php
 
-namespace FastDog\Config\Controllers\Emails;
+namespace FastDog\Config\Http\Controllers\Domain;
 
 
-use FastDog\Config\Models\Emails;
+use FastDog\Config\Events\DomainsItemsAdminPrepare;
 use FastDog\Core\Http\Controllers\Controller;
+use FastDog\Core\Models\Domain;
 use FastDog\Core\Table\Interfaces\TableControllerInterface;
 use FastDog\Core\Table\Traits\TableTrait;
 use Illuminate\Database\Eloquent\Model;
@@ -13,34 +14,33 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
 /**
- * Почтовые события - Таблица
+ * Домены - Таблица
  *
- * @package FastDog\Config\Controllers\Domain
+ * @package FastDog\Config\Http\Controllers\Domain
  * @version 0.2.0
  * @author Андрей Мартынов <d.g.dev482@gmail.com>
  */
-class EmailsTableController extends Controller implements TableControllerInterface
+class DomainTableController extends Controller implements TableControllerInterface
 {
     use  TableTrait;
-
 
     /**
      * Модель по которой будет осуществляться выборка данных
      *
-     * @var \FastDog\Config\Models\Emails|null $model
+     * @var \FastDog\Core\Models\Domain|null $model
      */
     protected $model = null;
 
     /**
      * ContentController constructor.
-     * @param Emails $model
+     * @param Domain $model
      */
-    public function __construct(Emails $model)
+    public function __construct(Domain $model)
     {
         parent::__construct();
         $this->model = $model;
         $this->initTable();
-        $this->page_title = trans('app.Почтовые события');
+        $this->page_title = trans('config::interface.Домены');
     }
 
     /**
@@ -62,9 +62,9 @@ class EmailsTableController extends Controller implements TableControllerInterfa
     public function list(Request $request): JsonResponse
     {
         $result = self::paginate($request);
-        $this->breadcrumbs->push(['url' => false, 'name' => trans('app.Управление')]);
+        $this->breadcrumbs->push(['url' => false, 'name' => trans('config::interface.Домены')]);
 
-        //\Event::fire(new DomainsItemsAdminPrepare($result, $result['items']));
+        event(new DomainsItemsAdminPrepare($result, $result['items']));
 
         return $this->json($result, __METHOD__);
     }
@@ -77,16 +77,6 @@ class EmailsTableController extends Controller implements TableControllerInterfa
     public function getCols(): Collection
     {
         return $this->table->getCols();
-    }
-
-    /**
-     * Поля для выборки по умолчанию
-     *
-     * @return array
-     */
-    public function getDefaultSelectFields(): array
-    {
-        return [Emails::SITE_ID,Emails::STATE];
     }
 
     /**

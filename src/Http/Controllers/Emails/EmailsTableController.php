@@ -1,8 +1,9 @@
 <?php
-namespace FastDog\Config\Controllers\Localization;
+
+namespace FastDog\Config\Http\Controllers\Emails;
 
 
-use FastDog\Config\Models\Translate;
+use FastDog\Config\Models\Emails;
 use FastDog\Core\Http\Controllers\Controller;
 use FastDog\Core\Table\Interfaces\TableControllerInterface;
 use FastDog\Core\Table\Traits\TableTrait;
@@ -12,33 +13,34 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
 /**
- * Локализация - таблица
+ * Почтовые события - Таблица
  *
- * @package FastDog\Config\Controllers\Localization
+ * @package FastDog\Config\Http\Controllers\Domain
  * @version 0.2.0
  * @author Андрей Мартынов <d.g.dev482@gmail.com>
  */
-class LocalizationTableController extends Controller implements TableControllerInterface
+class EmailsTableController extends Controller implements TableControllerInterface
 {
     use  TableTrait;
+
 
     /**
      * Модель по которой будет осуществляться выборка данных
      *
-     * @var \FastDog\Config\Models\Translate|null $model
+     * @var \FastDog\Config\Models\Emails|null $model
      */
     protected $model = null;
 
     /**
      * ContentController constructor.
-     * @param Translate $model
+     * @param Emails $model
      */
-    public function __construct(Translate $model)
+    public function __construct(Emails $model)
     {
         parent::__construct();
         $this->model = $model;
         $this->initTable();
-        $this->page_title = trans('app.Локализация');
+        $this->page_title = trans('app.Почтовые события');
     }
 
     /**
@@ -62,6 +64,8 @@ class LocalizationTableController extends Controller implements TableControllerI
         $result = self::paginate($request);
         $this->breadcrumbs->push(['url' => false, 'name' => trans('app.Управление')]);
 
+        //event(new DomainsItemsAdminPrepare($result, $result['items']));
+
         return $this->json($result, __METHOD__);
     }
 
@@ -75,7 +79,6 @@ class LocalizationTableController extends Controller implements TableControllerI
         return $this->table->getCols();
     }
 
-
     /**
      * Поля для выборки по умолчанию
      *
@@ -83,7 +86,7 @@ class LocalizationTableController extends Controller implements TableControllerI
      */
     public function getDefaultSelectFields(): array
     {
-        return [Translate::STATE, Translate::DELETED_AT, Translate::SITE_ID];
+        return [Emails::SITE_ID,Emails::STATE];
     }
 
     /**

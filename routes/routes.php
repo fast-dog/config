@@ -8,7 +8,7 @@ Route::group([
     'middleware' => ['web', FastDog\Admin\Http\Middleware\Admin::class],
 ], function () {
 
-    $ctrl = '\FastDog\Config\Controllers\ConfigController';
+    $ctrl = '\FastDog\Config\Http\Controllers\ConfigController';
 
 
     $baseParameters = [
@@ -19,27 +19,27 @@ Route::group([
      */
     // Домены - список
     \Route::post('/config/domains', array_replace_recursive($baseParameters, [
-        'uses' => '\FastDog\Config\Controllers\Domain\DomainTableController@list',
+        'uses' => '\FastDog\Config\Http\Controllers\Domain\DomainTableController@list',
 
     ]));
     // Домены - просмотр параметров
     \Route::get('/config/domains/{id}', array_replace_recursive($baseParameters, [
-        'uses' => '\FastDog\Config\Controllers\Domain\DomainFormController@getEditItem',
+        'uses' => '\FastDog\Config\Http\Controllers\Domain\DomainFormController@getEditItem',
 
     ]));
     // Домены - добавление нового домена
     \Route::post('/config/domain/add', array_replace_recursive($baseParameters, [
-        'uses' => '\FastDog\Config\Controllers\Domain\DomainFormController@postUpdate',
+        'uses' => '\FastDog\Config\Http\Controllers\Domain\DomainFormController@postUpdate',
 
     ]));
     // Домены - обновление параметров домена
     \Route::post('/config/domain/save', array_replace_recursive($baseParameters, [
-        'uses' => '\FastDog\Config\Controllers\Domain\DomainFormController@postUpdate',
+        'uses' => '\FastDog\Config\Http\Controllers\Domain\DomainFormController@postUpdate',
 
     ]));
     // Домены - сохранение параметров из списка
     \Route::post('/config/domains/self-update', array_replace_recursive($baseParameters, [
-        'uses' => '\FastDog\Config\Controllers\Domain\DomainFormController@postDomainsUpdate',
+        'uses' => '\FastDog\Config\Http\Controllers\Domain\DomainFormController@postDomainsUpdate',
 
     ]));
 
@@ -47,7 +47,7 @@ Route::group([
      * Компоненты публичных страниц (модули)
      */
 
-    $ctrl = '\FastDog\Config\Controllers\Components\ComponentsTableController';
+    $ctrl = '\FastDog\Config\Http\Controllers\Components\ComponentsTableController';
 
     // Компоненты - список компонентов
     \Route::post('/config/components', array_replace_recursive($baseParameters, [
@@ -57,7 +57,7 @@ Route::group([
     /**
      * Компоненты
      */
-    $ctrl = '\FastDog\Config\Controllers\Components\ComponentsFormController';
+    $ctrl = '\FastDog\Config\Http\Controllers\Components\ComponentsFormController';
 
     // Компоненты - информация о компоненте (публикуемом модуле)
     \Route::get('/config/components/{id}', array_replace_recursive($baseParameters, [
@@ -90,7 +90,7 @@ Route::group([
     /**
      * Почтовые события
      */
-    $ctrl = '\FastDog\Config\Controllers\Emails\EmailsTableController';
+    $ctrl = '\FastDog\Config\Http\Controllers\Emails\EmailsTableController';
 
     //список почтовых событий
     \Route::post('/config/emails', array_replace_recursive($baseParameters, [
@@ -101,7 +101,7 @@ Route::group([
     /**
      * Emails
      */
-    $ctrl = '\FastDog\Config\Controllers\Emails\EmailsFormController';
+    $ctrl = '\FastDog\Config\Http\Controllers\Emails\EmailsFormController';
 
     //обновление параметров почтовых событий
     \Route::post('/config/emails/self-update', array_replace_recursive($baseParameters, [
@@ -125,7 +125,7 @@ Route::group([
     /**
      * АПИ
      */
-    $ctrl = '\FastDog\Config\Controllers\ApiController';
+    $ctrl = '\FastDog\Config\Http\Controllers\ApiController';
 
     //страница помощи
     \Route::get('/config/help-page/', array_replace_recursive($baseParameters, [
@@ -154,7 +154,7 @@ Route::group([
     /**
      * Локализация - таблица
      */
-    $ctrl = '\FastDog\Config\Controllers\Localization\LocalizationTableController';
+    $ctrl = '\FastDog\Config\Http\Controllers\Localization\LocalizationTableController';
     //список локализации
     \Route::post('/config/localization', array_replace_recursive($baseParameters, [
         'uses' => $ctrl . '@list',
@@ -164,7 +164,7 @@ Route::group([
     /**
      * Локализация - форма редактирования
      */
-    $ctrl = '\FastDog\Config\Controllers\Localization\LocalizationFormController';
+    $ctrl = '\FastDog\Config\Http\Controllers\Localization\LocalizationFormController';
     //термин локализации
     \Route::get('/config/localization/{id}', array_replace_recursive($baseParameters, [
         'uses' => $ctrl . '@getEditItem',
@@ -206,7 +206,7 @@ Route::group([
     /**
      * Помощь администраторам - таблица
      */
-    $ctrl = '\FastDog\Config\Controllers\Help\HelpTableController';
+    $ctrl = '\FastDog\Config\Http\Controllers\Help\HelpTableController';
 
     //список страниц помощи
     \Route::post('/config/helps', array_replace_recursive($baseParameters, [
@@ -222,7 +222,7 @@ Route::group([
     /**
      * Помощь администраторам - форма
      */
-    $ctrl = '\FastDog\Config\Controllers\Help\HelpFormController';
+    $ctrl = '\FastDog\Config\Http\Controllers\Help\HelpFormController';
 
     // добавление\обновление страницы помощи
     \Route::get('/config/help/{id}', array_replace_recursive($baseParameters, [

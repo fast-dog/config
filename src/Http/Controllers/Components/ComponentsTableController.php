@@ -1,11 +1,11 @@
 <?php
 
-namespace FastDog\Config\Controllers\Components;
+namespace FastDog\Config\Http\Controllers\Components;
 
 
 use FastDog\Config\Events\Components\ComponentItemsAdminPrepare as ComponentsItemsAdminPrepare;
 use FastDog\Core\Http\Controllers\Controller;
-use FastDog\Core\Module\Components;
+use FastDog\Core\Models\Components;
 use FastDog\Core\Table\Interfaces\TableControllerInterface;
 use FastDog\Core\Table\Traits\TableTrait;
 use Illuminate\Database\Eloquent\Model;
@@ -16,7 +16,7 @@ use Illuminate\Support\Collection;
 /**
  * Компоненты публичных страниц - Таблица
  *
- * @package FastDog\Config\Controllers\Components
+ * @package FastDog\Config\Http\Controllers\Components
  * @version 0.2.0
  * @author Андрей Мартынов <d.g.dev482@gmail.com>
  */
@@ -24,11 +24,10 @@ class ComponentsTableController extends Controller implements TableControllerInt
 {
     use  TableTrait;
 
-
     /**
      * Модель по которой будет осуществляться выборка данных
      *
-     * @var \App\Core\Module\Components|null $model
+     * @var \FastDog\Core\Models\Components|null $model
      */
     protected $model = null;
 
@@ -41,7 +40,7 @@ class ComponentsTableController extends Controller implements TableControllerInt
         parent::__construct();
         $this->model = $model;
         $this->initTable();
-        $this->page_title = trans('app.Компоненты публичных страниц');
+        $this->page_title = trans('config::interface.Компоненты');
     }
 
     /**
@@ -53,10 +52,10 @@ class ComponentsTableController extends Controller implements TableControllerInt
     public function list(Request $request): JsonResponse
     {
         $result = self::paginate($request);
-        $this->breadcrumbs->push(['url' => false, 'name' => trans('app.Управление')]);
+        $this->breadcrumbs->push(['url' => false, 'name' => trans('config::interface.Компоненты')]);
 
         foreach ($result['items'] as &$item) {
-            \Event::fire(new  ComponentsItemsAdminPrepare($item));
+            event(new  ComponentsItemsAdminPrepare($item));
         }
 
         return $this->json($result, __METHOD__);

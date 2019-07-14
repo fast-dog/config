@@ -1,11 +1,9 @@
 <?php
+namespace FastDog\Config\Http\Controllers\Localization;
 
-namespace FastDog\Config\Controllers\Domain;
 
-
-use FastDog\Config\Events\DomainsItemsAdminPrepare;
+use FastDog\Config\Models\Translate;
 use FastDog\Core\Http\Controllers\Controller;
-use FastDog\Core\Models\Domain;
 use FastDog\Core\Table\Interfaces\TableControllerInterface;
 use FastDog\Core\Table\Traits\TableTrait;
 use Illuminate\Database\Eloquent\Model;
@@ -14,33 +12,33 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
 /**
- * Домены - Таблица
+ * Локализация - таблица
  *
- * @package FastDog\Config\Controllers\Domain
+ * @package FastDog\Config\Http\Controllers\Localization
  * @version 0.2.0
  * @author Андрей Мартынов <d.g.dev482@gmail.com>
  */
-class DomainTableController extends Controller implements TableControllerInterface
+class LocalizationTableController extends Controller implements TableControllerInterface
 {
     use  TableTrait;
 
     /**
      * Модель по которой будет осуществляться выборка данных
      *
-     * @var \FastDog\Core\Models\Domain|null $model
+     * @var \FastDog\Config\Models\Translate|null $model
      */
     protected $model = null;
 
     /**
      * ContentController constructor.
-     * @param Domain $model
+     * @param Translate $model
      */
-    public function __construct(Domain $model)
+    public function __construct(Translate $model)
     {
         parent::__construct();
         $this->model = $model;
         $this->initTable();
-        $this->page_title = trans('config::interface.Домены');
+        $this->page_title = trans('app.Локализация');
     }
 
     /**
@@ -62,9 +60,7 @@ class DomainTableController extends Controller implements TableControllerInterfa
     public function list(Request $request): JsonResponse
     {
         $result = self::paginate($request);
-        $this->breadcrumbs->push(['url' => false, 'name' => trans('config::interface.Домены')]);
-
-        event(new DomainsItemsAdminPrepare($result, $result['items']));
+        $this->breadcrumbs->push(['url' => false, 'name' => trans('app.Управление')]);
 
         return $this->json($result, __METHOD__);
     }
@@ -77,6 +73,17 @@ class DomainTableController extends Controller implements TableControllerInterfa
     public function getCols(): Collection
     {
         return $this->table->getCols();
+    }
+
+
+    /**
+     * Поля для выборки по умолчанию
+     *
+     * @return array
+     */
+    public function getDefaultSelectFields(): array
+    {
+        return [Translate::STATE, Translate::DELETED_AT, Translate::SITE_ID];
     }
 
     /**

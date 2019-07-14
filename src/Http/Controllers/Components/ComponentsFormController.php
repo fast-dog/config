@@ -1,6 +1,6 @@
 <?php
-namespace FastDog\Config\Controllers\Components;
 
+namespace FastDog\Config\Http\Controllers\Components;
 
 
 use FastDog\Config\Events\Components\ComponentItemAfterSave;
@@ -9,14 +9,14 @@ use FastDog\Config\Request\AddSiteModule;
 use FastDog\Core\Form\Interfaces\FormControllerInterface;
 use FastDog\Core\Form\Traits\FormControllerTrait;
 use FastDog\Core\Http\Controllers\Controller;
-use FastDog\Core\Module\Components;
+use FastDog\Core\Models\Components;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 /**
  * Компоненты публичных страниц - Форма
  *
- * @package FastDog\Config\Controllers\Components
+ * @package FastDog\Config\Http\Controllers\Components
  * @version 0.2.0
  * @author Андрей Мартынов <d.g.dev482@gmail.com>
  */
@@ -31,7 +31,7 @@ class ComponentsFormController extends Controller implements FormControllerInter
     public function __construct(Components $model)
     {
         $this->model = $model;
-        $this->page_title = trans('app.Компоненты публичных страниц');
+        $this->page_title = trans('config::interface.Компоненты');
         parent::__construct();
     }
 
@@ -41,12 +41,15 @@ class ComponentsFormController extends Controller implements FormControllerInter
      */
     public function getEditItem(Request $request): JsonResponse
     {
-        $this->breadcrumbs->push(['url' => '/config/components', 'name' => trans('app.Управление')]);
+        $this->breadcrumbs->push(['url' => '/config/components', 'name' => trans('config::interface.Компоненты')]);
 
         $result = $this->getItemData($request);
-        if ($this->item) {
-            $this->breadcrumbs->push(['url' => false, 'name' => $this->item->{Components::NAME}]);
-        }
+
+        $this->breadcrumbs->push([
+            'url' => false,
+            'name' => ($this->item->id) ? $this->item->{Components::NAME} : trans('config::forms.general.new'),
+        ]);
+
 
         return $this->json($result, __METHOD__);
     }
@@ -73,12 +76,12 @@ class ComponentsFormController extends Controller implements FormControllerInter
 
         if ($request->input('id') !== null) {
             $item = Components::find($request->input('id'));
-            \Event::fire(new ComponentItemBeforeSave($data, $item));
+            event(new ComponentItemBeforeSave($data, $item));
             unset($data['_events']);
             Components::where('id', $item->id)->update($data);
         } else {
             $model = new Components();
-            \Event::fire(new ComponentItemBeforeSave($data, $model));
+            event(new ComponentItemBeforeSave($data, $model));
             unset($data['_events']);
             $item = Components::create($data);
             $request->merge([
@@ -86,7 +89,7 @@ class ComponentsFormController extends Controller implements FormControllerInter
             ]);
         }
 
-        \Event::fire(new ComponentItemAfterSave($data, $item, $result));
+        event(new ComponentItemAfterSave($data, $item, $result));
 
 
         $result = $this->getItemData($request);
