@@ -307,7 +307,7 @@ class ComponentItemSetEditForm
                 ],
                 (object)[
                     'id' => 'catalog-item-media-tab',
-                    'name' => trans('app.Медиа материалы'),
+                    'name' => trans('config::forms.components.media.title'),
                     'active' => false,
                     'fields' => [
                         [
@@ -317,7 +317,7 @@ class ComponentItemSetEditForm
                 ],
                 (object)[
                     'id' => 'catalog-item-extend-tab',
-                    'name' => trans('app.Дополнительно'),
+                    'name' => trans('config::forms.components.extend.title'),
                     'fields' => [
                         [
                             'type' => FormFieldTypes::TYPE_COMPONENT_SAMPLE_PROPERTIES,
