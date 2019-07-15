@@ -3,8 +3,9 @@ namespace FastDog\Config\Listeners\Components;
 
 
 
-use App\Core\Module\Components;
+
 use FastDog\Config\Events\Components\ComponentItemAdminPrepare as PublicModulesItemAdminPrepareEvent;
+use FastDog\Core\Models\Components;
 use FastDog\Core\Models\DomainManager;
 use FastDog\Core\Models\FormFieldTypes;
 use Illuminate\Database\Eloquent\Builder;
@@ -124,133 +125,133 @@ class ComponentItemSetEditForm
                             'items' => $componentTemplates,
                             'option_group' => true,
                         ],
-                        [
-                            'id' => 'item_id',
-                            'type' => FormFieldTypes::TYPE_SELECT,
-                            'name' => 'item_id',
-                            'form_group' => false,
-                            'label' => trans('app.Пункт меню навигации'),
-                            'items' => $this->getMenuTree(),
-                            'option_group' => false,
-                            'expression' => 'function(item){ return (item.type.id == "menu::item") }',
-                        ],
-                        [
-                            'id' => 'html',
-                            'type' => FormFieldTypes::TYPE_CODE_EDITOR,
-                            'name' => 'html',
-                            'css_class' => 'col-sm-12 m-t-xs',
-                            'label' => trans('app.Html содержимое'),
-                            'expression' => 'function(item){ return (item.type.id == "core::html") }',
-                        ],
-                        [
-                            'id' => 'item_id',
-                            'type' => FormFieldTypes::TYPE_SELECT,
-                            'name' => 'item_id',
-                            'form_group' => false,
-                            'label' => trans('app.Справочник'),
-                            'items' => $this->getDataSourceItems(),
-                            'option_group' => false,
-                            'expression' => 'function(item){ 
-                            return (item.type.id == "data_source::items" || item.type.id == "data_source::pages") 
-                            }',
-                        ],
-                        [
-                            'id' => 'data_source_item_id',
-                            'type' => FormFieldTypes::TYPE_SEARCH,
-                            'name' => 'data_source_item_id',
-                            'label' => trans('app.Элемент справочника'),
-                            'css_class' => 'col-sm-6',
-                            'data_url' => 'data-source/value-list',
-                            'form_group' => false,
-                            'title' => trans('app.Список элементов'),
-                            'expression' => 'function(item){ return (item.type.id == "data_source::pages") }',
-                            'filter' => [
-                                'id' => (isset($data['item_id'])) ? $data['item_id'] : 0,
-                            ],
-                            //'value' => (isset($data['data_source_item_id'])) ? $data['data_source_item_id'] : ['id' => 0, 'value' => ''],
-                        ],
-                        [
-                            'id' => 'item_id',
-                            'type' => FormFieldTypes::TYPE_SEARCH,
-                            'name' => 'item_id',
-                            'label' => trans('app.Баннер'),
-                            'css_class' => 'col-sm-6',
-                            'data_url' => 'banners/api/search',
-                            'form_group' => false,
-                            'title' => trans('app.Список баннеров'),
-                            'expression' => 'function(item){
-                             return (["banner::items","banner::tree","banner::item"].indexOf(item.type.id) !== -1)
-                             }',
-                            'filter' => [
-                                'id' => (isset($data['item_id'])) ? $data['item_id'] : 0,
-                            ],
-                        ],
-                        [
-                            'id' => 'item_id',
-                            'type' => FormFieldTypes::TYPE_SELECT,
-                            'name' => 'item_id',
-                            'form_group' => false,
-                            'label' => trans('app.Категория каталога'),
-                            'items' => Category::getCategoryList(true),
-                            'option_group' => false,
-                            'expression' => 'function(item){  
-                                return (["catalog::category","catalog::categories"].indexOf(item.type.id) !== -1) 
-                            }',
-                        ],
-                        [
-                            'id' => 'item_id',
-                            'type' => FormFieldTypes::TYPE_SEARCH,
-                            'name' => 'item_id',
-                            'label' => trans('app.Элемент каталога'),
-                            'css_class' => 'col-sm-12',
-                            'data_url' => 'catalog/search',
-                            'form_group' => false,
-                            'use_filters' => true,
-                            'title' => trans('app.Элементы каталога'),
-                            'expression' => 'function(item){ return ("catalog::item" == item.type.id) }',
-                            'filter' => [
-                                '_name' => 0,
-                            ],
-                        ],
-                        [
-                            'id' => 'item_id',
-                            'type' => FormFieldTypes::TYPE_SELECT,
-                            'name' => 'item_id',
-                            'form_group' => false,
-                            'label' => trans('app.Категория'),
-                            'items' => ContentCategory::getCategoryList(true),
-                            'option_group' => false,
-                            'expression' => 'function(item){  
-                                return (["content::category","content::related"].indexOf(item.type.id) !== -1) 
-                            }',
-                        ],
-                        [
-                            'id' => 'item_id',
-                            'type' => FormFieldTypes::TYPE_SEARCH,
-                            'name' => 'item_id',
-                            'label' => trans('app.Материал'),
-                            'css_class' => 'col-sm-12',
-                            'data_url' => 'public/content/search-list',
-                            'form_group' => false,
-                            'use_filters' => true,
-                            'title' => trans('app.Материалы'),
-                            'expression' => 'function(item){ return (["content::item"].indexOf(item.type.id) !== -1) }',
-                            'filter' => [
-                                '_name' => 0,
-                            ],
-                        ],
-                        [
-                            'id' => 'item_id',
-                            'type' => FormFieldTypes::TYPE_SELECT,
-                            'name' => 'item_id',
-                            'form_group' => false,
-                            'label' => trans('app.Форма'),
-                            'items' => FormManager::getList(),
-                            'option_group' => false,
-                            'expression' => 'function(item){  
-                                return (["form::item"].indexOf(item.type.id) !== -1) 
-                            }',
-                        ],
+//                        [
+//                            'id' => 'item_id',
+//                            'type' => FormFieldTypes::TYPE_SELECT,
+//                            'name' => 'item_id',
+//                            'form_group' => false,
+//                            'label' => trans('app.Пункт меню навигации'),
+//                            'items' => $this->getMenuTree(),
+//                            'option_group' => false,
+//                            'expression' => 'function(item){ return (item.type.id == "menu::item") }',
+//                        ],
+//                        [
+//                            'id' => 'html',
+//                            'type' => FormFieldTypes::TYPE_CODE_EDITOR,
+//                            'name' => 'html',
+//                            'css_class' => 'col-sm-12 m-t-xs',
+//                            'label' => trans('app.Html содержимое'),
+//                            'expression' => 'function(item){ return (item.type.id == "core::html") }',
+//                        ],
+//                        [
+//                            'id' => 'item_id',
+//                            'type' => FormFieldTypes::TYPE_SELECT,
+//                            'name' => 'item_id',
+//                            'form_group' => false,
+//                            'label' => trans('app.Справочник'),
+//                            'items' => $this->getDataSourceItems(),
+//                            'option_group' => false,
+//                            'expression' => 'function(item){
+//                            return (item.type.id == "data_source::items" || item.type.id == "data_source::pages")
+//                            }',
+//                        ],
+//                        [
+//                            'id' => 'data_source_item_id',
+//                            'type' => FormFieldTypes::TYPE_SEARCH,
+//                            'name' => 'data_source_item_id',
+//                            'label' => trans('app.Элемент справочника'),
+//                            'css_class' => 'col-sm-6',
+//                            'data_url' => 'data-source/value-list',
+//                            'form_group' => false,
+//                            'title' => trans('app.Список элементов'),
+//                            'expression' => 'function(item){ return (item.type.id == "data_source::pages") }',
+//                            'filter' => [
+//                                'id' => (isset($data['item_id'])) ? $data['item_id'] : 0,
+//                            ],
+//                            //'value' => (isset($data['data_source_item_id'])) ? $data['data_source_item_id'] : ['id' => 0, 'value' => ''],
+//                        ],
+//                        [
+//                            'id' => 'item_id',
+//                            'type' => FormFieldTypes::TYPE_SEARCH,
+//                            'name' => 'item_id',
+//                            'label' => trans('app.Баннер'),
+//                            'css_class' => 'col-sm-6',
+//                            'data_url' => 'banners/api/search',
+//                            'form_group' => false,
+//                            'title' => trans('app.Список баннеров'),
+//                            'expression' => 'function(item){
+//                             return (["banner::items","banner::tree","banner::item"].indexOf(item.type.id) !== -1)
+//                             }',
+//                            'filter' => [
+//                                'id' => (isset($data['item_id'])) ? $data['item_id'] : 0,
+//                            ],
+//                        ],
+//                        [
+//                            'id' => 'item_id',
+//                            'type' => FormFieldTypes::TYPE_SELECT,
+//                            'name' => 'item_id',
+//                            'form_group' => false,
+//                            'label' => trans('app.Категория каталога'),
+//                            'items' => Category::getCategoryList(true),
+//                            'option_group' => false,
+//                            'expression' => 'function(item){
+//                                return (["catalog::category","catalog::categories"].indexOf(item.type.id) !== -1)
+//                            }',
+//                        ],
+//                        [
+//                            'id' => 'item_id',
+//                            'type' => FormFieldTypes::TYPE_SEARCH,
+//                            'name' => 'item_id',
+//                            'label' => trans('app.Элемент каталога'),
+//                            'css_class' => 'col-sm-12',
+//                            'data_url' => 'catalog/search',
+//                            'form_group' => false,
+//                            'use_filters' => true,
+//                            'title' => trans('app.Элементы каталога'),
+//                            'expression' => 'function(item){ return ("catalog::item" == item.type.id) }',
+//                            'filter' => [
+//                                '_name' => 0,
+//                            ],
+//                        ],
+//                        [
+//                            'id' => 'item_id',
+//                            'type' => FormFieldTypes::TYPE_SELECT,
+//                            'name' => 'item_id',
+//                            'form_group' => false,
+//                            'label' => trans('app.Категория'),
+//                            'items' => ContentCategory::getCategoryList(true),
+//                            'option_group' => false,
+//                            'expression' => 'function(item){
+//                                return (["content::category","content::related"].indexOf(item.type.id) !== -1)
+//                            }',
+//                        ],
+//                        [
+//                            'id' => 'item_id',
+//                            'type' => FormFieldTypes::TYPE_SEARCH,
+//                            'name' => 'item_id',
+//                            'label' => trans('app.Материал'),
+//                            'css_class' => 'col-sm-12',
+//                            'data_url' => 'public/content/search-list',
+//                            'form_group' => false,
+//                            'use_filters' => true,
+//                            'title' => trans('app.Материалы'),
+//                            'expression' => 'function(item){ return (["content::item"].indexOf(item.type.id) !== -1) }',
+//                            'filter' => [
+//                                '_name' => 0,
+//                            ],
+//                        ],
+//                        [
+//                            'id' => 'item_id',
+//                            'type' => FormFieldTypes::TYPE_SELECT,
+//                            'name' => 'item_id',
+//                            'form_group' => false,
+//                            'label' => trans('app.Форма'),
+//                            'items' => FormManager::getList(),
+//                            'option_group' => false,
+//                            'expression' => 'function(item){
+//                                return (["form::item"].indexOf(item.type.id) !== -1)
+//                            }',
+//                        ],
                     ],
                     'side' => [
                         [
