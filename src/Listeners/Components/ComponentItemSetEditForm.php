@@ -1,10 +1,10 @@
 <?php
+
 namespace FastDog\Config\Listeners\Components;
 
 
-
-
 use FastDog\Config\Events\Components\ComponentItemAdminPrepare as PublicModulesItemAdminPrepareEvent;
+use FastDog\Core\Events\GetComponentType;
 use FastDog\Core\Models\Components;
 use FastDog\Core\Models\DomainManager;
 use FastDog\Core\Models\FormFieldTypes;
@@ -83,6 +83,42 @@ class ComponentItemSetEditForm
         }
 
 
+        $defaultType = [
+            [
+                'id' => Components::NAME,
+                'type' => FormFieldTypes::TYPE_TEXT,
+                'name' => Components::NAME,
+                'label' => trans('config::forms.components.general.fields.name'),
+                'css_class' => 'col-sm-12',
+                'form_group' => false,
+                'required' => true,
+                'validate' => 'required|min:5',
+                'readonly' => ($item->id != 0),
+            ],
+            [
+                'id' => Components::TYPE,
+                'type' => FormFieldTypes::TYPE_SELECT,
+                'name' => Components::TYPE,
+                'label' => trans('config::forms.components.general.fields.type'),
+                'css_class' => 'col-sm-6 m-t-xs',
+                'form_group' => false,
+                'items' => $componentsPrepare,
+                'option_group' => true,
+                //'readonly' => ($item->id > 0),
+            ],
+            [
+                'id' => 'template',
+                'type' => FormFieldTypes::TYPE_SELECT,
+                'name' => 'template',
+                'label' => trans('config::forms.components.general.fields.template'),
+                'css_class' => 'col-sm-6 m-t-xs',
+                'form_group' => false,
+                'items' => $componentTemplates,
+                'option_group' => true,
+            ],
+        ];
+        event(new GetComponentType($defaultType));
+
         $result['form'] = [
             'create_url' => 'config/component/add',
             'update_url' => 'config/component/save',
@@ -90,41 +126,11 @@ class ComponentItemSetEditForm
             'tabs' => (array)[
                 (object)[
                     'id' => 'catalog-item-general-tab',
-                    'name' => trans('app.Основная информация'),
+                    'name' => trans('config::forms.components.general.title'),
                     'active' => true,
-                    'fields' => (array)[
-                        [
-                            'id' => Components::NAME,
-                            'type' => FormFieldTypes::TYPE_TEXT,
-                            'name' => Components::NAME,
-                            'label' => trans('app.Идетнификатор'),
-                            'css_class' => 'col-sm-12',
-                            'form_group' => false,
-                            'required' => true,
-                            'validate' => 'required|min:5',
-                            'readonly' => ($item->id != 0),
-                        ],
-                        [
-                            'id' => Components::TYPE,
-                            'type' => FormFieldTypes::TYPE_SELECT,
-                            'name' => Components::TYPE,
-                            'label' => trans('app.Тип'),
-                            'css_class' => 'col-sm-6 m-t-xs',
-                            'form_group' => false,
-                            'items' => $componentsPrepare,
-                            'option_group' => true,
-                            //'readonly' => ($item->id > 0),
-                        ],
-                        [
-                            'id' => 'template',
-                            'type' => FormFieldTypes::TYPE_SELECT,
-                            'name' => 'template',
-                            'label' => trans('app.Шаблон'),
-                            'css_class' => 'col-sm-6 m-t-xs',
-                            'form_group' => false,
-                            'items' => $componentTemplates,
-                            'option_group' => true,
-                        ],
+                    'fields' => $defaultType,
+
+                    //  (array)[
 //                        [
 //                            'id' => 'item_id',
 //                            'type' => FormFieldTypes::TYPE_SELECT,
@@ -252,13 +258,13 @@ class ComponentItemSetEditForm
 //                                return (["form::item"].indexOf(item.type.id) !== -1)
 //                            }',
 //                        ],
-                    ],
+                    // ],
                     'side' => [
                         [
                             'id' => 'access',
                             'type' => FormFieldTypes::TYPE_ACCESS_LIST,
                             'name' => Components::SITE_ID,
-                            'label' => trans('app.Доступ'),
+                            'label' => trans('config::forms.components.general.fields.access'),
                             'items' => DomainManager::getAccessDomainList(),
                             'css_class' => 'col-sm-12',
                             'active' => DomainManager::checkIsDefault(),
@@ -267,7 +273,7 @@ class ComponentItemSetEditForm
                             'id' => Components::STATE,
                             'type' => FormFieldTypes::TYPE_SELECT,
                             'name' => Components::STATE,
-                            'label' => trans('app.Состояние'),
+                            'label' => trans('config::forms.components.general.fields.state'),
                             'css_class' => 'col-sm-12',
                             'items' => Components::getStatusList(),
                         ],

@@ -54,6 +54,9 @@ class ConfigEventServiceProvider extends ServiceProvider
             'FastDog\Config\Listeners\Localization\LocalizationAdminPrepare',
             'FastDog\Config\Listeners\Localization\LocalizationSetEditForm',// <-- Форма редактирования
         ],
+        'FastDog\Core\Events\GetComponentType' => [
+
+        ],
     ];
 
 
