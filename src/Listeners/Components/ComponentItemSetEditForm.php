@@ -55,23 +55,24 @@ class ComponentItemSetEditForm
         $componentsPrepare = []; //<-- Конвертируем массив типов для отображения в списке в optiongroup
         $componentTemplates = [];//<-- Шаблоны текущего типа, необходимо установить для первого отображения в форме
         foreach ($components as $_key => &$component) {
-            foreach ($component['items'] as &$field) {
-                $field['id'] = $component['id'] . '::' . $field['id'];
-                $type = $data[Components::TYPE];
-                if (isset($data[Components::TYPE]->id)) {
-                    $type = $data[Components::TYPE]->id;
-                }
-                if ($field['id'] == $type) {
-                    foreach ($field['templates'] as $key => $template) {
-                        $componentTemplates[] = [
-                            'id' => $key,
-                            'name' => $key,
-                            'label' => $key,
-                            'items' => $template['templates'],
-                        ];
-                    }
-                }
-            }
+
+//            foreach ($component['items'] as &$field) {
+//                $field['id'] = $component['id'] . '::' . $field['id'];
+//                $type = $data[Components::TYPE];
+//                if (isset($data[Components::TYPE]->id)) {
+//                    $type = $data[Components::TYPE]->id;
+//                }
+//                if ($field['id'] == $type) {
+//                    foreach ($field['templates'] as $key => $template) {
+//                        $componentTemplates[] = [
+//                            'id' => $key,
+//                            'name' => $key,
+//                            'label' => $key,
+//                            'items' => $template['templates'],
+//                        ];
+//                    }
+//                }
+//            }
 
             $componentsPrepare[] = [
                 'id' => $component['name'],
