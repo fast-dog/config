@@ -8,7 +8,6 @@ use FastDog\Core\Events\GetComponentType;
 use FastDog\Core\Models\Components;
 use FastDog\Core\Models\DomainManager;
 use FastDog\Core\Models\FormFieldTypes;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 class ComponentItemSetEditForm
@@ -52,27 +51,35 @@ class ComponentItemSetEditForm
         }
 
         $components = Components::getInstallModules();
+        if (isset($components['_events'])) {
+            array_merge($result['_events'], $components['_events']);
+            unset($components['_events']);
+        }
+
+
         $componentsPrepare = []; //<-- Конвертируем массив типов для отображения в списке в optiongroup
         $componentTemplates = [];//<-- Шаблоны текущего типа, необходимо установить для первого отображения в форме
+
         foreach ($components as $_key => &$component) {
 
-//            foreach ($component['items'] as &$field) {
-//                $field['id'] = $component['id'] . '::' . $field['id'];
-//                $type = $data[Components::TYPE];
-//                if (isset($data[Components::TYPE]->id)) {
-//                    $type = $data[Components::TYPE]->id;
-//                }
-//                if ($field['id'] == $type) {
-//                    foreach ($field['templates'] as $key => $template) {
-//                        $componentTemplates[] = [
-//                            'id' => $key,
-//                            'name' => $key,
-//                            'label' => $key,
-//                            'items' => $template['templates'],
-//                        ];
-//                    }
-//                }
-//            }
+            foreach ($component['items'] as &$field) {
+                $field['id'] = $component['id'] . '::' . $field['id'];
+                $type = $data[Components::TYPE];
+                if (isset($data[Components::TYPE]->id)) {
+                    $type = $data[Components::TYPE]->id;
+                }
+                if ($field['id'] == $type) {
+                    foreach ($field['templates'] as $key => $template) {
+                        $componentTemplates[] = [
+                            'id' => $key,
+                            'name' => $key,
+                            'label' => $key,
+                            'items' => $template['templates'],
+                        ];
+                    }
+                }
+            }
+
 
             $componentsPrepare[] = [
                 'id' => $component['name'],
@@ -324,64 +331,5 @@ class ComponentItemSetEditForm
 
         $event->setData($data);
         $event->setResult($result);
-    }
-
-    /**
-     * Получение списка созданных меню с учетом доступа по домену
-     *
-     * @return array
-     */
-    protected function getMenuTree()
-    {
-        $menuTree = [];
-        Menu::where(function (Builder $query) {
-            $query->where('lft', 1);
-            if (DomainManager::checkIsDefault() == false) {
-                $query->whereIn(Menu::SITE_ID, DomainManager::getScopeIds());
-            }
-        })->get()->each(function (Menu $root) use (&$menuTree) {
-            $name = $root->getName();
-            $name = str_repeat('┊ ', $root->{Menu::DEPTH}) . $name;
-            array_push($menuTree, [
-                'id' => $root->id,
-                'name' => $name . ' (#' . $root->{Menu::SITE_ID} . ')',
-            ]);
-            $root->descendants()->where(function ($query) {
-
-            })->get()->each(function (Menu $menuItem) use (&$menuTree) {
-                $name = $menuItem->getName();
-                $name = str_repeat('┊ ', $menuItem->{Menu::DEPTH}) . $name;
-                array_push($menuTree, [
-                    'id' => $menuItem->id,
-                    'name' => $name,
-                ]);
-            });
-        });
-
-        return $menuTree;
-    }
-
-    /**
-     * Получение списка Справочников с учетом доступа по домену
-     *
-     * @return array
-     */
-    public function getDataSourceItems()
-    {
-        $result = [];
-        DataSource::where(function (Builder $query) {
-            if (DomainManager::checkIsDefault() == false) {
-                $query->whereIn(Menu::SITE_ID, DomainManager::getScopeIds());
-            }
-            $query->where(DataSource::STATE, DataSource::STATE_PUBLISHED);
-
-        })->get()->each(function (DataSource $item) use (&$result) {
-            array_push($result, [
-                'id' => $item->id,
-                'name' => $item->{DataSource::NAME},
-            ]);
-        });
-
-        return $result;
     }
 }
