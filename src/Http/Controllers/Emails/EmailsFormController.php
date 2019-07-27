@@ -3,7 +3,6 @@
 namespace FastDog\Config\Http\Controllers\Emails;
 
 
-
 use FastDog\Config\Models\Emails;
 use FastDog\Core\Form\Interfaces\FormControllerInterface;
 use FastDog\Core\Form\Traits\FormControllerTrait;
@@ -30,7 +29,7 @@ class EmailsFormController extends Controller implements FormControllerInterface
     public function __construct(Emails $model)
     {
         $this->model = $model;
-        $this->page_title = trans('app.Почтовые события');
+        $this->page_title = trans('config::interface.Почтовые события');
         parent::__construct();
     }
 
@@ -40,12 +39,14 @@ class EmailsFormController extends Controller implements FormControllerInterface
      */
     public function getEditItem(Request $request): JsonResponse
     {
-        $this->breadcrumbs->push(['url' => '/config/emails', 'name' => trans('app.Управление')]);
+        $this->breadcrumbs->push(['url' => '/config/emails', 'name' => trans('config::interface.Почтовые события')]);
 
         $result = $this->getItemData($request);
-        if ($this->item) {
-            $this->breadcrumbs->push(['url' => false, 'name' => $this->item->{BaseModel::NAME}]);
-        }
+        $this->breadcrumbs->push([
+            'url' => false,
+            'name' => ($this->item) ? trans('config::forms.email.new') : $this->item->{BaseModel::NAME}
+        ]);
+
 
         return $this->json($result, __METHOD__);
     }
