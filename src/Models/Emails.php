@@ -101,7 +101,7 @@ class Emails extends BaseModel implements TableModelInterface, PropertiesInterfa
 
         if (is_string($name)) {
             /**@var $tpl self */
-            $tpl = self::where(function (Builder $query) use ($name, $params) {
+            $tpl = self::where(function(Builder $query) use ($name, $params) {
                 $query->where(self::ALIAS, $name);
                 $query->where(self::STATE, self::STATE_PUBLISHED);
                 if (isset($params[self::SITE_ID])) {
@@ -142,7 +142,7 @@ class Emails extends BaseModel implements TableModelInterface, PropertiesInterfa
             $params['title_header'] = $tpl->getParameterByFilterData(['name' => 'TITLE_HEADER'], '');
 
             $result = \Mail::send('core::email.system', $params,
-                function ($message) use ($tpl, $params) {
+                function($message) use ($tpl, $params) {
                     if (!isset($params['to'])) {
                         $params['to'] = $tpl->getParameterByFilterData(['name' => 'TO_ADDRESS'], null);
                     }
@@ -184,7 +184,7 @@ class Emails extends BaseModel implements TableModelInterface, PropertiesInterfa
     {
         return [
             [
-                'name' => trans('app.Название'),
+                'name' => trans('config::forms.email.general.fields.name'),
                 'key' => self::NAME,
                 'domain' => true,
                 'callback' => false,
@@ -210,26 +210,15 @@ class Emails extends BaseModel implements TableModelInterface, PropertiesInterfa
             [
                 [
                     BaseFilter::NAME => self::NAME,
-                    BaseFilter::PLACEHOLDER => 'Название',
+                    BaseFilter::PLACEHOLDER => trans('config::forms.email.general.fields.name'),
                     BaseFilter::TYPE => BaseFilter::TYPE_TEXT,
-                    BaseFilter::DISPLAY => false,
+                    BaseFilter::DISPLAY => true,
                     BaseFilter::OPERATOR => (new BaseOperator('LIKE', 'LIKE'))->getOperator(),
                 ],
             ],
         ];
 
         return $default;
-    }
-
-    /**
-     * Возвращает ключ доступа к ACL
-     * @param string $type
-     * @return string
-     */
-    public function getAccessKey($type = 'guest'): string
-    {
-        return strtolower(\FastDog\Config\Config::class) . '::' . DomainManager::getSiteId() . '::' . $type;
-
     }
 
     /**
@@ -241,53 +230,53 @@ class Emails extends BaseModel implements TableModelInterface, PropertiesInterfa
         // TODO: добавит локализацию
         $result = [
             [
-                BaseProperties::NAME => 'Имя формы',
+                BaseProperties::NAME => trans('config::properties.email.form_name'),
                 BaseProperties::ALIAS => 'FROM_NAME',
                 BaseProperties::VALUE => '',
                 BaseProperties::SORT => 100,
                 BaseProperties::TYPE => BaseProperties::TYPE_STRING,
                 BaseProperties::DATA => json_encode([
-                    'description' => 'Имя отправляемой формы или почтоыого события',
+                    'description' => trans('config::properties.email.form_name_description'),
                 ]),
             ],
             [
-                BaseProperties::NAME => 'Email отправителя',
+                BaseProperties::NAME => trans('config::properties.email.from_address'),
                 BaseProperties::ALIAS => 'FROM_ADDRESS',
                 BaseProperties::VALUE => config('mail.from.address'),
                 BaseProperties::SORT => 100,
                 BaseProperties::TYPE => BaseProperties::TYPE_STRING,
                 BaseProperties::DATA => json_encode([
-                    'description' => 'Email отправителя',
+                    'description' => trans('config::properties.email.address_description'),
                 ]),
             ],
             [
-                BaseProperties::NAME => 'Тема Email',
+                BaseProperties::NAME => trans('config::properties.email.subject'),
                 BaseProperties::ALIAS => 'SUBJECT',
                 BaseProperties::VALUE => '',
                 BaseProperties::SORT => 100,
                 BaseProperties::TYPE => BaseProperties::TYPE_STRING,
                 BaseProperties::DATA => json_encode([
-                    'description' => 'Тема Email',
+                    'description' => trans('config::properties.email.subject_description'),
                 ]),
             ],
             [
-                BaseProperties::NAME => 'Заголовок',
+                BaseProperties::NAME => trans('config::properties.email.title'),
                 BaseProperties::ALIAS => 'TITLE',
                 BaseProperties::VALUE => '',
                 BaseProperties::SORT => 100,
                 BaseProperties::TYPE => BaseProperties::TYPE_STRING,
                 BaseProperties::DATA => json_encode([
-                    'description' => 'Заголовок в теле письма',
+                    'description' => trans('config::properties.email.title_description'),
                 ]),
             ],
             [
-                BaseProperties::NAME => 'Текст в заголовоке',
+                BaseProperties::NAME => trans('config::properties.email.title_header'),
                 BaseProperties::ALIAS => 'TITLE_HEADER',
                 BaseProperties::VALUE => '',
                 BaseProperties::SORT => 100,
                 BaseProperties::TYPE => BaseProperties::TYPE_STRING,
                 BaseProperties::DATA => json_encode([
-                    'description' => 'Текст в заголовоке в теле письма',
+                    'description' => trans('config::properties.email.title_header_description'),
                 ]),
             ],
         ];
