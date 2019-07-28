@@ -41,13 +41,15 @@ class ComponentsFormController extends Controller implements FormControllerInter
      */
     public function getEditItem(Request $request): JsonResponse
     {
-        $this->breadcrumbs->push(['url' => '/config/components', 'name' => trans('config::interface.Компоненты')]);
+        $this->breadcrumbs->push([
+            'url' => '/config/components',
+            'name' => trans('config::interface.Компоненты')]);
 
         $result = $this->getItemData($request);
 
         $this->breadcrumbs->push([
             'url' => false,
-            'name' => ($this->item->id) ? $this->item->{Components::NAME} : trans('config::forms.general.new'),
+            'name' => ($this->item->id) ? $this->item->{Components::NAME} : trans('config::forms.components.new'),
         ]);
 
 
@@ -113,3 +115,4 @@ class ComponentsFormController extends Controller implements FormControllerInter
     }
 
 }
+

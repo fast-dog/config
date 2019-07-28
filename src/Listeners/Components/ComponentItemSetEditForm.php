@@ -80,14 +80,12 @@ class ComponentItemSetEditForm
                 }
             }
 
-
             $componentsPrepare[] = [
                 'id' => $component['name'],
                 'name' => $component['name'],
                 'label' => $component['name'],
                 'items' => $component['items'],
             ];
-
         }
 
 
@@ -289,7 +287,7 @@ class ComponentItemSetEditForm
                             'id' => Components::CREATED_AT,
                             'type' => FormFieldTypes::TYPE_DATE,
                             'name' => Components::CREATED_AT,
-                            'label' => trans('app.Дата создания'),
+                            'label' => trans('config::forms.components.general.fields.created_at'),
                             'css_class' => 'col-sm-12',
                             'form_group' => true,
                             'readonly' => true,
@@ -298,7 +296,7 @@ class ComponentItemSetEditForm
                             'id' => Components::UPDATED_AT,
                             'type' => FormFieldTypes::TYPE_DATE,
                             'name' => Components::UPDATED_AT,
-                            'label' => trans('app.Дата обновления'),
+                            'label' => trans('config::forms.components.general.fields.updated_at'),
                             'css_class' => 'col-sm-12',
                             'form_group' => true,
                             'readonly' => true,

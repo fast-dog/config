@@ -29,6 +29,8 @@ return [
                 'template' => 'Шаблон',
                 'access' => 'Доступ',
                 'state' => 'Состояние',
+                'created_at' => 'Дата создания',
+                'updated_at' => 'Дата обновления',
             ],
         ],
         'media' => [
