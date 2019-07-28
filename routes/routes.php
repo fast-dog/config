@@ -95,7 +95,6 @@ Route::group([
     //список почтовых событий
     \Route::post('/config/emails', array_replace_recursive($baseParameters, [
         'uses' => $ctrl . '@list',
-
     ]));
 
     /**
@@ -104,7 +103,7 @@ Route::group([
     $ctrl = '\FastDog\Config\Http\Controllers\Emails\EmailsFormController';
 
     //обновление параметров почтовых событий
-    \Route::post('/config/emails/self-update', array_replace_recursive($baseParameters, [
+    \Route::post('/config/emails/update', array_replace_recursive($baseParameters, [
         'uses' => $ctrl . '@postEmailsUpdate',
 
     ]));
