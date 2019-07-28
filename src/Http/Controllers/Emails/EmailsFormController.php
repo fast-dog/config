@@ -109,7 +109,16 @@ class EmailsFormController extends Controller implements FormControllerInterface
     public function postEmailsUpdate(Request $request)
     {
         $result = ['success' => true, 'items' => []];
-        $this->updatedModel($request->all(), Emails::class);
+
+        try {
+            $this->updatedModel($request->all(), Emails::class);
+        } catch (\Exception $e) {
+            return $this->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+                'code' => $e->getCode()
+            ], __METHOD__);
+        }
 
         return $this->json($result, __METHOD__);
     }

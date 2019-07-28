@@ -83,7 +83,9 @@ class ApiController extends Controller
             'url' => false,
             'name' => trans('config::interface.Настройки')
         ]);
+
         $modules = [];
+
         Module::orderBy(Module::PRIORITY)->get()->each(function (Module $item) use (&$modules) {
             $item->data =  json_decode($item->data);
             array_push($modules, [

@@ -106,8 +106,16 @@ class DomainFormController extends Controller implements FormControllerInterface
     public function postDomainsUpdate(Request $request)
     {
         $result = ['success' => true, 'items' => []];
-        $this->updatedModel($request->all(), Domain::class);
 
+        try {
+            $this->updatedModel($request->all(), Domain::class);
+        } catch (\Exception $e) {
+            return $this->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+                'code' => $e->getCode()
+            ], __METHOD__);
+        }
         return $this->json($result, __METHOD__);
     }
 }

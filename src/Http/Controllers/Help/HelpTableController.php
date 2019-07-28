@@ -85,8 +85,16 @@ class HelpTableController extends Controller implements TableControllerInterface
     public function postHelpSelfUpdate(Request $request)
     {
         $result = ['success' => true, 'items' => []];
-        $this->updatedModel($request->all(), Help::class);
 
+        try {
+            $this->updatedModel($request->all(), Help::class);
+        } catch (\Exception $e) {
+            return $this->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+                'code' => $e->getCode()
+            ], __METHOD__);
+        }
         return $this->json($result, __METHOD__);
     }
 

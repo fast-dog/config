@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 Route::group([
     'prefix' => config('core.admin_path', 'admin'),
     'middleware' => ['web', FastDog\Admin\Http\Middleware\Admin::class],
-], function () {
+], function() {
 
     $ctrl = '\FastDog\Config\Http\Controllers\ConfigController';
 
@@ -164,6 +164,7 @@ Route::group([
      * Локализация - форма редактирования
      */
     $ctrl = '\FastDog\Config\Http\Controllers\Localization\LocalizationFormController';
+
     //термин локализации
     \Route::get('/config/localization/{id}', array_replace_recursive($baseParameters, [
         'uses' => $ctrl . '@getEditItem',
@@ -173,7 +174,11 @@ Route::group([
     //добавление\обновление термина локализации
     \Route::post('/config/localization/save', array_replace_recursive($baseParameters, [
         'uses' => $ctrl . '@postUpdate',
+    ]));
 
+    //добавление\обновление термина локализации
+    \Route::post('/config/localization/update', array_replace_recursive($baseParameters, [
+        'uses' => $ctrl . '@postLocalizationUpdate',
     ]));
 
 
@@ -237,7 +242,7 @@ Route::group([
     /**
      * Очистка кэша, удаление скомпилированных шаблонов
      */
-    \Route::post('/config/clear-cache', function (Request $request) {
+    \Route::post('/config/clear-cache', function(Request $request) {
         switch ($request->input('type')) {
             case 'views':
                 \Artisan::call('view:clear');

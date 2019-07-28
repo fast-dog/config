@@ -100,4 +100,26 @@ class LocalizationFormController extends Controller implements FormControllerInt
         return $this->json($result, __METHOD__);
     }
 
+    /**
+     * Обновление основных параметров модели из таблицы
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function postLocalizationUpdate(Request $request)
+    {
+        $result = ['success' => true, 'items' => []];
+
+        try {
+            $this->updatedModel($request->all(), Translate::class);
+        } catch (\Exception $e) {
+            return $this->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+                'code' => $e->getCode()
+            ], __METHOD__);
+        }
+        return $this->json($result, __METHOD__);
+    }
+
 }
