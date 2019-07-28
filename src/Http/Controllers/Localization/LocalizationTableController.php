@@ -38,7 +38,7 @@ class LocalizationTableController extends Controller implements TableControllerI
         parent::__construct();
         $this->model = $model;
         $this->initTable();
-        $this->page_title = trans('app.Локализация');
+        $this->page_title = trans('config::interface.Локализация');
     }
 
     /**
@@ -60,7 +60,10 @@ class LocalizationTableController extends Controller implements TableControllerI
     public function list(Request $request): JsonResponse
     {
         $result = self::paginate($request);
-        $this->breadcrumbs->push(['url' => false, 'name' => trans('app.Управление')]);
+        $this->breadcrumbs->push([
+            'url' => false,
+            'name' => trans('config::interface.Локализация')
+        ]);
 
         return $this->json($result, __METHOD__);
     }

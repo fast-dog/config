@@ -28,7 +28,7 @@ class LocalizationFormController extends Controller implements FormControllerInt
     public function __construct(Translate $model)
     {
         $this->model = $model;
-        $this->page_title = trans('app.Локализация');
+        $this->page_title = trans('config::interface.Локализация');
         parent::__construct();
     }
 
@@ -38,12 +38,18 @@ class LocalizationFormController extends Controller implements FormControllerInt
      */
     public function getEditItem(Request $request): JsonResponse
     {
-        $this->breadcrumbs->push(['url' => '/config/localization', 'name' => trans('app.Управление')]);
+        $this->breadcrumbs->push([
+            'url' => '/config/localization',
+            'name' => trans('config::interface.Локализация')
+        ]);
 
         $result = $this->getItemData($request);
-        if ($this->item) {
-            $this->breadcrumbs->push(['url' => false, 'name' => $this->item->{Translate::KEY}]);
-        }
+
+        $this->breadcrumbs->push([
+            'url' => false,
+            'name' => ($this->item) ? $this->item->{Translate::KEY} : trans('config::forms.localization.new')
+        ]);
+
 
         return $this->json($result, __METHOD__);
     }
@@ -78,7 +84,6 @@ class LocalizationFormController extends Controller implements FormControllerInt
         if ($item) {
             $result = $this->getItemData($request);
         }
-
 
         return $this->json($result, __METHOD__);
     }
