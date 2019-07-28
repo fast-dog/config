@@ -40,7 +40,7 @@ class EmailsTableController extends Controller implements TableControllerInterfa
         parent::__construct();
         $this->model = $model;
         $this->initTable();
-        $this->page_title = trans('app.Почтовые события');
+        $this->page_title = trans('config::interface.Почтовые события');
     }
 
     /**
@@ -62,7 +62,10 @@ class EmailsTableController extends Controller implements TableControllerInterfa
     public function list(Request $request): JsonResponse
     {
         $result = self::paginate($request);
-        $this->breadcrumbs->push(['url' => false, 'name' => trans('app.Управление')]);
+        $this->breadcrumbs->push([
+            'url' => false,
+            'name' => trans('config::interface.Почтовые события')
+        ]);
 
         //event(new DomainsItemsAdminPrepare($result, $result['items']));
 
@@ -86,7 +89,7 @@ class EmailsTableController extends Controller implements TableControllerInterfa
      */
     public function getDefaultSelectFields(): array
     {
-        return [Emails::SITE_ID,Emails::STATE];
+        return [Emails::SITE_ID, Emails::STATE];
     }
 
     /**

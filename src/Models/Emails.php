@@ -190,6 +190,11 @@ class Emails extends BaseModel implements TableModelInterface, PropertiesInterfa
                 'callback' => false,
                 'link' => 'emails_item',
                 'extra' => true,
+                'action' => [
+                    'edit' => true,
+                    'replicate' => true,
+                    'delete' => true,
+                ]
             ],
             [
                 'name' => '#',
