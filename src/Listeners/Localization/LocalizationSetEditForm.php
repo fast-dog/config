@@ -56,14 +56,14 @@ class LocalizationSetEditForm
             'tabs' => (array)[
                 (object)[
                     'id' => 'catalog-item-general-tab',
-                    'name' => trans('app.Основная информация'),
+                    'name' => trans('config::forms.localization.general.title'),
                     'active' => true,
                     'fields' => (array)[
                         [
                             'id' => Translate::CODE,
                             'type' => FormFieldTypes::TYPE_TEXT,
                             'name' => Translate::CODE,
-                            'label' => trans('app.Код'),
+                            'label' => trans('config::forms.localization.general.code'),
                             'css_class' => 'col-sm-12',
                             'form_group' => false,
                             'readonly' => true,
@@ -72,7 +72,7 @@ class LocalizationSetEditForm
                             'id' => Translate::KEY,
                             'type' => FormFieldTypes::TYPE_TEXT,
                             'name' => Translate::KEY,
-                            'label' => trans('app.Название'),
+                            'label' => trans('config::forms.localization.general.name'),
                             'css_class' => 'col-sm-12',
                             'form_group' => false,
                             'readonly' => true,
@@ -81,20 +81,18 @@ class LocalizationSetEditForm
                             'id' => Translate::VALUE,
                             'type' => FormFieldTypes::TYPE_TEXT,
                             'name' => Translate::VALUE,
-                            'label' => trans('app.Значение'),
+                            'label' => trans('config::forms.localization.general.value'),
                             'css_class' => 'col-sm-12',
                             'form_group' => false,
                             'required' => true,
                         ],
-
-
                     ],
                     'side' => [
                         [
                             'id' => Translate::SITE_ID,
                             'type' => FormFieldTypes::TYPE_SELECT,
                             'name' => Translate::SITE_ID,
-                            'label' => trans('app.Доступ'),
+                            'label' => trans('config::forms.localization.general.access'),
                             'items' => DomainManager::getAccessDomainList(),
                             'css_class' => 'col-sm-12',
                             'active' => DomainManager::checkIsDefault(),
@@ -103,12 +101,10 @@ class LocalizationSetEditForm
                             'id' => Translate::STATE,
                             'type' => FormFieldTypes::TYPE_SELECT,
                             'name' => Translate::STATE,
-                            'label' => trans('app.Состояние'),
+                            'label' => trans('config::forms.localization.general.state'),
                             'css_class' => 'col-sm-12',
                             'items' => Translate::getStatusList(),
                         ],
-
-
                     ],
                 ],
             ],

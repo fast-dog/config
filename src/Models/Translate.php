@@ -1,4 +1,5 @@
 <?php
+
 namespace FastDog\Config\Models;
 
 use FastDog\Config\Events\Localization\LocalizationAdminPrepare;
@@ -10,6 +11,7 @@ use FastDog\Core\Table\Filters\Operator\BaseOperator;
 use FastDog\Core\Table\Interfaces\TableModelInterface;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Arr;
 
 /**
  * Обертка над локализацией
@@ -157,11 +159,11 @@ class Translate extends BaseModel implements TableModelInterface
         /**
          * @var $items Collection
          */
-        $items = self::where(function (Builder $query) {
+        $items = self::where(function(Builder $query) {
             $query->where(self::SITE_ID, DomainManager::getSiteId());
         })->get();
 
-        $items->each(function ($item, $idx) use (&$result) {
+        $items->each(function($item, $idx) use (&$result) {
             $result[$item->code][] = [
                 'id' => $item->id,
                 'key' => $item->key,
@@ -196,7 +198,7 @@ class Translate extends BaseModel implements TableModelInterface
                  */
                 $items = self::where(self::CODE, $code)->get();
 
-                $items->each(function ($item, $idx) use (&$result) {
+                $items->each(function($item, $idx) use (&$result) {
                     array_push($result, [
                         'id' => $item->id,
                         'key' => $item->key,
@@ -244,15 +246,20 @@ class Translate extends BaseModel implements TableModelInterface
     {
         return [
             [
-                'name' => trans('app.Название'),
+                'name' => trans('config::interface.Название'),
                 'key' => self::KEY,
                 'domain' => true,
                 'callback' => false,
                 'link' => 'localization_item',
                 'extra' => true,
+                'action' => [
+                    'edit' => true,
+                    'replicate' => true,
+                    'delete' => true,
+                ]
             ],
             [
-                'name' => trans('app.Значение'),
+                'name' => trans('config::interface.Значение'),
                 'key' => self::VALUE,
                 'domain' => false,
                 'callback' => false,
@@ -280,9 +287,9 @@ class Translate extends BaseModel implements TableModelInterface
             [
                 [
                     BaseFilter::NAME => self::VALUE,
-                    BaseFilter::PLACEHOLDER => trans('app.Код'),
+                    BaseFilter::PLACEHOLDER => trans('config::forms.localization.general.code'),
                     BaseFilter::TYPE => BaseFilter::TYPE_TEXT,
-                    BaseFilter::DISPLAY => false,
+                    BaseFilter::DISPLAY => true,
                     BaseFilter::OPERATOR => (new BaseOperator('LIKE', 'LIKE'))->getOperator(),
                 ],
             ],
@@ -291,12 +298,12 @@ class Translate extends BaseModel implements TableModelInterface
                 [
                     'id' => self::SITE_ID,
                     BaseFilter::NAME => self::SITE_ID,
-                    BaseFilter::PLACEHOLDER => 'Домен',
+                    BaseFilter::PLACEHOLDER => trans('config::forms.localization.general.access'),
                     BaseFilter::TYPE => BaseFilter::TYPE_SELECT,
                     BaseFilter::DATA => $siteIds,
                     BaseFilter::OPERATOR => (new BaseOperator())->getOperator(),
                     BaseFilter::DISPLAY => true,
-                    'value' => array_first(array_filter($siteIds, function ($value) use ($siteId) {
+                    'value' => Arr::first(array_filter($siteIds, function($value) use ($siteId) {
                         return $value['id'] == $siteId;
                     })),
                 ],
@@ -306,4 +313,4 @@ class Translate extends BaseModel implements TableModelInterface
         return $default;
     }
 
- }
+}
