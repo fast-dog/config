@@ -92,7 +92,7 @@ class Config
 
         return [
             'id' => self::MODULE_ID,
-            'menu' => function () use ($paths, $templates_paths) {
+            'menu' => function() use ($paths, $templates_paths) {
                 $result = [];
                 foreach ($this->getMenuType() as $id => $item) {
                     array_push($result, [
@@ -107,10 +107,10 @@ class Config
             },
             'templates_paths' => $templates_paths,
             'module_type' => $this->getMenuType(),
-            'admin_menu' => function () {
+            'admin_menu' => function() {
                 return $this->getAdminMenuItems();
             },
-            'access' => function () {
+            'access' => function() {
                 return [
                     '000',
                 ];
@@ -211,12 +211,14 @@ class Config
             'icon' => 'fa-cubes',
             'name' => trans('config::interface.Компоненты'),
             'route' => '/configuration/components',
+            'new' => '/configuration/components/0'
         ]);
 
         array_push($result['children'], [
             'icon' => 'fa-envelope',
             'name' => trans('config::interface.Почтовые события'),
             'route' => '/configuration/emails',
+            'new' => '/configuration/emails/0'
         ]);
 
         array_push($result['children'], [
@@ -229,6 +231,7 @@ class Config
             'icon' => 'fa-life-bouy',
             'name' => trans('config::interface.Помощь'),
             'route' => '/configuration/help',
+            'new' => '/configuration/help/0'
         ]);
 
         array_push($result['children'], [
