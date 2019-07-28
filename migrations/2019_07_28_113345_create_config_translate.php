@@ -25,6 +25,7 @@ class CreateConfigTranslate extends Migration
                 $table->char(Translate::SITE_ID, 3)->default('000');
 
                 $table->timestamps();
+                $table->softDeletes();
             });
             DB::statement("ALTER TABLE `config_translate` comment 'Справочник перевода текста'");
         }

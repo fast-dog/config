@@ -3,9 +3,9 @@
 namespace FastDog\Config;
 
 
-use FastDog\Config\Models\Translate;
 use FastDog\Config\Policies\DomainPolicy;
 use FastDog\Config\Policies\EmailsPolicy;
+use FastDog\Config\Policies\TranslatePolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 /**
@@ -25,7 +25,7 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         \FastDog\Core\Models\Domain::class => DomainPolicy::class,
         \FastDog\Config\Models\Emails::class => EmailsPolicy::class,
-        \FastDog\Config\Models\Translate::class => Translate::class
+        \FastDog\Config\Models\Translate::class => TranslatePolicy::class
     ];
 
     /**

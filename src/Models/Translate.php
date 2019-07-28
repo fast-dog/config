@@ -287,7 +287,7 @@ class Translate extends BaseModel implements TableModelInterface
             [
                 [
                     BaseFilter::NAME => self::VALUE,
-                    BaseFilter::PLACEHOLDER => trans('config::forms.localization.general.code'),
+                    BaseFilter::PLACEHOLDER => trans('config::forms.localization.general.fields.code'),
                     BaseFilter::TYPE => BaseFilter::TYPE_TEXT,
                     BaseFilter::DISPLAY => true,
                     BaseFilter::OPERATOR => (new BaseOperator('LIKE', 'LIKE'))->getOperator(),
@@ -298,7 +298,7 @@ class Translate extends BaseModel implements TableModelInterface
                 [
                     'id' => self::SITE_ID,
                     BaseFilter::NAME => self::SITE_ID,
-                    BaseFilter::PLACEHOLDER => trans('config::forms.localization.general.access'),
+                    BaseFilter::PLACEHOLDER => trans('config::forms.localization.general.fields.access'),
                     BaseFilter::TYPE => BaseFilter::TYPE_SELECT,
                     BaseFilter::DATA => $siteIds,
                     BaseFilter::OPERATOR => (new BaseOperator())->getOperator(),
