@@ -2,9 +2,9 @@
 
 namespace FastDog\Config\Events\Localization;
 
-use App\Core\Interfaces\AdminPrepareEventInterface;
-use FastDog\Config\Entity\Translate;
-
+use FastDog\Config\Models\Translate;
+use FastDog\Core\Interfaces\AdminPrepareEventInterface;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * Редактирование термина локализации
@@ -47,7 +47,7 @@ class LocalizationAdminPrepare implements AdminPrepareEventInterface
     /**
      * @return Translate
      */
-    public function getItem()
+    public function getItem(): Model
     {
         return $this->item;
     }
@@ -55,7 +55,7 @@ class LocalizationAdminPrepare implements AdminPrepareEventInterface
     /**
      * @return array
      */
-    public function getData()
+    public function getData(): array
     {
         return $this->data;
     }
@@ -63,7 +63,7 @@ class LocalizationAdminPrepare implements AdminPrepareEventInterface
     /**
      * @param $data
      */
-    public function setData($data)
+    public function setData(array $data): void
     {
         $this->data = $data;
     }
@@ -71,7 +71,7 @@ class LocalizationAdminPrepare implements AdminPrepareEventInterface
     /**
      * @return array
      */
-    public function getResult()
+    public function getResult(): array
     {
         return $this->result;
     }
@@ -80,7 +80,7 @@ class LocalizationAdminPrepare implements AdminPrepareEventInterface
      * @param $result
      * @return void
      */
-    public function setResult($result)
+    public function setResult(array $result): void
     {
         $this->result = $result;
     }

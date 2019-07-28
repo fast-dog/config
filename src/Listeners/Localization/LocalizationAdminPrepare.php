@@ -1,14 +1,16 @@
 <?php
 namespace FastDog\Config\Listeners\Localization;
 
-
-
 use FastDog\Config\Models\Translate;
 use Illuminate\Http\Request;
 use FastDog\Config\Events\Localization\LocalizationAdminPrepare as LocalizationAdminPrepareEvent;
 
-
-
+/**
+ * Class LocalizationAdminPrepare
+ * @package FastDog\Config\Listeners\Localization
+ * @version 0.2.0
+ * @author Андрей Мартынов <d.g.dev482@gmail.com>
+ */
 class LocalizationAdminPrepare
 {
     /**
