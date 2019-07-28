@@ -1,8 +1,6 @@
 <?php
 namespace FastDog\Config\Models;
 
-
-
 use FastDog\Config\Events\Localization\LocalizationAdminPrepare;
 use FastDog\Core\Models\BaseModel;
 use FastDog\Core\Models\DomainManager;
@@ -63,6 +61,9 @@ class Translate extends BaseModel implements TableModelInterface
      */
     public $timestamps = false;
 
+    /**
+     * @return array
+     */
     public function getData(): array
     {
         $result = [
