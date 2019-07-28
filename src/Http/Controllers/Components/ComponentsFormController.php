@@ -42,7 +42,7 @@ class ComponentsFormController extends Controller implements FormControllerInter
     public function getEditItem(Request $request): JsonResponse
     {
         $this->breadcrumbs->push([
-            'url' => '/config/components',
+            'url' => '/configuration/components',
             'name' => trans('config::interface.Компоненты')]);
 
         $result = $this->getItemData($request);

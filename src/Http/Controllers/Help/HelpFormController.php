@@ -28,7 +28,7 @@ class HelpFormController extends Controller implements FormControllerInterface
     public function __construct(ConfigHelp $model)
     {
         $this->model = $model;
-        $this->page_title = trans('app.Помощь администраторам');
+        $this->page_title = trans('config::interface.Помощь администраторам');
         parent::__construct();
     }
 
@@ -38,12 +38,18 @@ class HelpFormController extends Controller implements FormControllerInterface
      */
     public function getEditItem(Request $request): JsonResponse
     {
-        $this->breadcrumbs->push(['url' => '/config/help', 'name' => trans('app.Управление')]);
+        $this->breadcrumbs->push([
+            'url' => '/configuration/help',
+            'name' => trans('config::interface.Помощь администраторам')
+        ]);
 
         $result = $this->getItemData($request);
-        if ($this->item) {
-            $this->breadcrumbs->push(['url' => false, 'name' => $this->item->{Help::NAME}]);
-        }
+
+        $this->breadcrumbs->push([
+            'url' => false,
+            'name' => ($this->item) ? $this->item->{ConfigHelp::NAME} : trans('config::forms.help.new')
+        ]);
+
 
         return $this->json($result, __METHOD__);
     }

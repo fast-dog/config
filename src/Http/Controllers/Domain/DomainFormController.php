@@ -40,7 +40,10 @@ class DomainFormController extends Controller implements FormControllerInterface
      */
     public function getEditItem(Request $request): JsonResponse
     {
-        $this->breadcrumbs->push(['url' => '/config/domains', 'name' => trans('config::interface.Домены')]);
+        $this->breadcrumbs->push([
+            'url' => '/configuration/domains',
+            'name' => trans('config::interface.Домены')
+        ]);
 
         $result = $this->getItemData($request);
 

@@ -78,8 +78,11 @@ class ApiController extends Controller
             'items' => [],
         ];
 
-        $this->page_title = trans('app.Параметры');
-        $this->breadcrumbs->push(['url' => '/config/modules', 'name' => trans('app.Настройки')]);
+        $this->page_title = trans('config::interface.Администрирование');
+        $this->breadcrumbs->push([
+            'url' => false,
+            'name' => trans('config::interface.Настройки')
+        ]);
         $modules = [];
         Module::orderBy(Module::PRIORITY)->get()->each(function (Module $item) use (&$modules) {
             $item->data =  json_decode($item->data);
@@ -95,7 +98,7 @@ class ApiController extends Controller
         $moduleManager = \App::make(ModuleManager::class);
 
 
-        $module = $moduleManager->getInstance('FastDog\Config\Config');
+        $module = $moduleManager->getInstance('config');
 
         /**
          * Параметры модуля

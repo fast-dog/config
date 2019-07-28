@@ -39,7 +39,10 @@ class EmailsFormController extends Controller implements FormControllerInterface
      */
     public function getEditItem(Request $request): JsonResponse
     {
-        $this->breadcrumbs->push(['url' => '/config/emails', 'name' => trans('config::interface.Почтовые события')]);
+        $this->breadcrumbs->push([
+            'url' => '/configuration/emails',
+            'name' => trans('config::interface.Почтовые события')
+        ]);
 
         $result = $this->getItemData($request);
         $this->breadcrumbs->push([

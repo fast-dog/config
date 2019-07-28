@@ -52,7 +52,8 @@ class ComponentsTableController extends Controller implements TableControllerInt
     public function list(Request $request): JsonResponse
     {
         $result = self::paginate($request);
-        $this->breadcrumbs->push(['url' => false, 'name' => trans('config::interface.Компоненты')]);
+        $this->breadcrumbs->push([
+            'url' => false, 'name' => trans('config::interface.Компоненты')]);
 
         foreach ($result['items'] as &$item) {
             event(new  ComponentsItemsAdminPrepare($item));

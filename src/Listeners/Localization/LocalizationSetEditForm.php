@@ -66,7 +66,7 @@ class LocalizationSetEditForm
                             'label' => trans('config::forms.localization.general.fields.code'),
                             'css_class' => 'col-sm-12',
                             'form_group' => false,
-                            'readonly' => true,
+                            'readonly' => $this->request->has('id'),
                         ],
                         [
                             'id' => Translate::KEY,
@@ -75,7 +75,7 @@ class LocalizationSetEditForm
                             'label' => trans('config::forms.localization.general.fields.name'),
                             'css_class' => 'col-sm-12',
                             'form_group' => false,
-                            'readonly' => true,
+                            'readonly' => $this->request->has('id'),
                         ],
                         [
                             'id' => Translate::VALUE,
@@ -84,7 +84,7 @@ class LocalizationSetEditForm
                             'label' => trans('config::forms.localization.general.fields.value'),
                             'css_class' => 'col-sm-12',
                             'form_group' => false,
-                            'required' => true,
+                            'required' => $this->request->has('id'),
                         ],
                     ],
                     'side' => [
