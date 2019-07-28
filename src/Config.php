@@ -225,6 +225,7 @@ class Config
             'icon' => 'fa-language',
             'name' => trans('config::interface.Локализация'),
             'route' => '/configuration/localization',
+            'new' => '/configuration/localization/0'
         ]);
 
         array_push($result['children'], [
