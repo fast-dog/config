@@ -27,6 +27,8 @@ class CreateConfigHelp extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
+
+        DB::statement("ALTER TABLE `config_help` comment 'Локальная справка по проекту, CMS'");
     }
 
     /**
