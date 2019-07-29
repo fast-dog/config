@@ -39,7 +39,7 @@ class HelpTableController extends Controller implements TableControllerInterface
         parent::__construct();
         $this->model = $model;
         $this->initTable();
-        $this->page_title = trans('app.Помощь администраторам');
+        $this->page_title = trans('config::interface.Помощь администраторам');
     }
 
     /**
@@ -61,7 +61,7 @@ class HelpTableController extends Controller implements TableControllerInterface
     public function list(Request $request): JsonResponse
     {
         $result = self::paginate($request);
-        $this->breadcrumbs->push(['url' => false, 'name' => trans('app.Управление')]);
+        $this->breadcrumbs->push(['url' => false, 'name' =>  trans('config::interface.Помощь администраторам')]);
 
         return $this->json($result, __METHOD__);
     }
