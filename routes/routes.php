@@ -132,23 +132,23 @@ Route::group([
 
     ]));
 
-    //страница настроек
-    \Route::get('/config/admin-info/', array_replace_recursive($baseParameters, [
-        'uses' => $ctrl . '@getAdminInfo',
+//    //страница настроек
+//    \Route::get('/config/admin-info/', array_replace_recursive($baseParameters, [
+//        'uses' => $ctrl . '@getAdminInfo',
+//
+//    ]));
+//
+//    //изменение разрешений для модуля
+//    \Route::post('/config/access', array_replace_recursive($baseParameters, [
+//        'uses' => $ctrl . '@postAccess',
+//
+//    ]));
 
-    ]));
-
-    //изменение разрешений для модуля
-    \Route::post('/config/access', array_replace_recursive($baseParameters, [
-        'uses' => $ctrl . '@postAccess',
-
-    ]));
-
-    //выполнение команд для отдельного модуля (переустановить\обновить ACL и т.д.)
-    \Route::post('/config/modules/cmd', array_replace_recursive($baseParameters, [
-        'uses' => $ctrl . '@postModuleCmd',
-
-    ]));
+//    //выполнение команд для отдельного модуля (переустановить\обновить ACL и т.д.)
+//    \Route::post('/config/modules/cmd', array_replace_recursive($baseParameters, [
+//        'uses' => $ctrl . '@postModuleCmd',
+//
+//    ]));
 
     /**
      * Локализация - таблица
@@ -218,8 +218,8 @@ Route::group([
 
     ]));
     //обновление страницы помощи
-    \Route::post('/config/helps/self-update', array_replace_recursive($baseParameters, [
-        'uses' => $ctrl . '@postHelpSelfUpdate',
+    \Route::post('/config/helps/update', array_replace_recursive($baseParameters, [
+        'uses' => $ctrl . '@postHelpUpdate',
 
     ]));
 

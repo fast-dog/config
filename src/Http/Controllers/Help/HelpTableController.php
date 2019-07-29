@@ -61,7 +61,7 @@ class HelpTableController extends Controller implements TableControllerInterface
     public function list(Request $request): JsonResponse
     {
         $result = self::paginate($request);
-        $this->breadcrumbs->push(['url' => false, 'name' =>  trans('config::interface.Помощь администраторам')]);
+        $this->breadcrumbs->push(['url' => false, 'name' => trans('config::interface.Помощь администраторам')]);
 
         return $this->json($result, __METHOD__);
     }
@@ -81,13 +81,14 @@ class HelpTableController extends Controller implements TableControllerInterface
      *
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
      */
-    public function postHelpSelfUpdate(Request $request)
+    public function postHelpUpdate(Request $request)
     {
         $result = ['success' => true, 'items' => []];
 
         try {
-            $this->updatedModel($request->all(), Help::class);
+            $this->updatedModel($request->all(), ConfigHelp::class);
         } catch (\Exception $e) {
             return $this->json([
                 'success' => false,
