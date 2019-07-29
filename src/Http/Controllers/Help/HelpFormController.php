@@ -68,20 +68,20 @@ class HelpFormController extends Controller implements FormControllerInterface
         ];
         $item = null;
         $data = [
-            Help::NAME => $request->input(Help::NAME),
-            Help::ALIAS => $request->input(Help::ALIAS),
-            Help::STATE => $request->input(Help::STATE . '.id', Help::STATE_PUBLISHED),
-            Help::TEXT => $request->input(Help::TEXT),
-            Help::DATA => json_encode($request->input(Help::DATA)),
+            ConfigHelp::NAME => $request->input(ConfigHelp::NAME),
+            ConfigHelp::ALIAS => $request->input(ConfigHelp::ALIAS),
+            ConfigHelp::STATE => $request->input(ConfigHelp::STATE . '.id', ConfigHelp::STATE_PUBLISHED),
+            ConfigHelp::TEXT => $request->input(ConfigHelp::TEXT),
+            ConfigHelp::DATA => json_encode($request->input(ConfigHelp::DATA)),
         ];
         if ($request->input('id') > 0) {
-            $item = Help::find($request->input('id'));
+            $item = ConfigHelp::find($request->input('id'));
             if ($item) {
-                Help::where('id', $item->id)->update($data);
-                $item = Help::find($item->id);
+                ConfigHelp::where('id', $item->id)->update($data);
+                $item = ConfigHelp::find($item->id);
             }
         } else {
-            $item = Help::create($data);
+            $item = ConfigHelp::create($data);
         }
 
         return $this->json($result, __METHOD__);
