@@ -47,7 +47,7 @@ class HelpFormController extends Controller implements FormControllerInterface
 
         $this->breadcrumbs->push([
             'url' => false,
-            'name' => ($this->item) ? $this->item->{ConfigHelp::NAME} : trans('config::forms.help.new')
+            'name' => ($this->item->id > 0) ? $this->item->{ConfigHelp::NAME} : trans('config::forms.help.new')
         ]);
 
 

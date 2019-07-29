@@ -2,10 +2,11 @@
 
 namespace FastDog\Config\Events;
 
-use App\Core\Interfaces\AdminPrepareEventInterface;
-use FastDog\Config\Entity\Help;
-use FastDog\Config\Entity\Messages;
 
+use Baum\Extensions\Eloquent\Model;
+use FastDog\Config\Models\ConfigHelp;
+use FastDog\Core\Interfaces\AdminPrepareEventInterface;
+use FastDog\Core\Models\BaseModel;
 
 /**
  * Редактирование страницы помощи администраторам
@@ -28,14 +29,14 @@ class HelpAdminPrepare implements AdminPrepareEventInterface
     protected $result = [];
 
     /**
-     * @var Help $item
+     * @var ConfigHelp $item
      */
     protected $item;
 
     /**
      * DomainsItemAdminPrepare constructor.
      * @param array $data
-     * @param Help $item
+     * @param ConfigHelp $item
      * @param array $result
      */
     public function __construct(array &$data, &$item, array &$result)
@@ -46,9 +47,9 @@ class HelpAdminPrepare implements AdminPrepareEventInterface
     }
 
     /**
-     * @return Help
+     * @return ConfigHelp
      */
-    public function getItem()
+    public function getItem(): \Illuminate\Database\Eloquent\Model
     {
         return $this->item;
     }
@@ -56,7 +57,7 @@ class HelpAdminPrepare implements AdminPrepareEventInterface
     /**
      * @return array
      */
-    public function getData()
+    public function getData(): array
     {
         return $this->data;
     }
@@ -64,7 +65,7 @@ class HelpAdminPrepare implements AdminPrepareEventInterface
     /**
      * @param $data
      */
-    public function setData($data)
+    public function setData(array $data): void
     {
         $this->data = $data;
     }
@@ -72,7 +73,7 @@ class HelpAdminPrepare implements AdminPrepareEventInterface
     /**
      * @return array
      */
-    public function getResult()
+    public function getResult(): array
     {
         return $this->result;
     }
@@ -81,7 +82,7 @@ class HelpAdminPrepare implements AdminPrepareEventInterface
      * @param $result
      * @return void
      */
-    public function setResult($result)
+    public function setResult(array $result): void
     {
         $this->result = $result;
     }
