@@ -2,9 +2,7 @@
 
 namespace FastDog\Config\Models;
 
-
 use FastDog\Config\Events\HelpAdminPrepare;
-
 use FastDog\Core\Models\BaseModel;
 use FastDog\Core\Table\Filters\BaseFilter;
 use FastDog\Core\Table\Filters\Operator\BaseOperator;
@@ -84,11 +82,16 @@ class ConfigHelp extends BaseModel implements TableModelInterface
     {
         return [
             [
-                'name' => trans('app.Название'),
-                'key' => BaseModel::NAME,
+                'name' => trans('config::forms.help.general.fields.name'),
+                'key' => self::NAME,
                 'domain' => true,
                 'callback' => false,
                 'link' => 'help_item',
+                'action' => [
+                    'edit' => true,
+                    'replicate' => true,
+                    'delete' => true,
+                ]
             ],
             [
                 'name' => '#',
@@ -108,10 +111,10 @@ class ConfigHelp extends BaseModel implements TableModelInterface
         $default = [
             [
                 [
-                    BaseFilter::NAME => BaseModel::NAME,
-                    BaseFilter::PLACEHOLDER => 'Название',
+                    BaseFilter::NAME => self::NAME,
+                    BaseFilter::PLACEHOLDER => trans('config::forms.help.general.fields.name'),
                     BaseFilter::TYPE => BaseFilter::TYPE_TEXT,
-                    BaseFilter::DISPLAY => false,
+                    BaseFilter::DISPLAY => true,
                     BaseFilter::OPERATOR => (new BaseOperator('LIKE', 'LIKE'))->getOperator(),
                 ],
             ],

@@ -47,7 +47,8 @@ class LocalizationFormController extends Controller implements FormControllerInt
 
         $this->breadcrumbs->push([
             'url' => false,
-            'name' => ($this->item) ? $this->item->{Translate::KEY} : trans('config::forms.localization.new')
+            'name' => ($this->item->id > 0) ? $this->item->{Translate::KEY} :
+                trans('config::forms.localization.new')
         ]);
 
 

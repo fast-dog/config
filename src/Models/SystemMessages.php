@@ -19,22 +19,21 @@ class SystemMessages extends BaseModel
      * @const string
      */
     const  TEXT = 'text';
+
     /**
      * Имя таблицы в базе данных
-     *
      * @var string $table 'system_messages'
      */
     public $table = 'system_messages';
+
     /**
      * Массив полей автозаполнения
-     *
      * @var array $fillable
      */
     public $fillable = [self::NAME, self::ALIAS, self::TEXT, self::DATA, self::STATE, self::SITE_ID];
 
     /**
      * Детальная информация по объекту
-     *
      * @return array
      */
     public function getData(): array
@@ -104,8 +103,6 @@ class SystemMessages extends BaseModel
             $params['content'] = $text;
             $params['title'] = $tpl->getParameterByFilterData(['name' => 'TITLE'], '');
             $params['title_header'] = $tpl->getParameterByFilterData(['name' => 'TITLE_HEADER'], '');
-
-
         }
     }
 }
