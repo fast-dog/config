@@ -3,6 +3,7 @@
 namespace FastDog\Config\Http\Controllers\Help;
 
 use FastDog\Config\Models\ConfigHelp;
+use FastDog\Config\Request\AddHelp;
 use FastDog\Core\Form\Interfaces\FormControllerInterface;
 use FastDog\Core\Form\Traits\FormControllerTrait;
 use FastDog\Core\Http\Controllers\Controller;
@@ -57,15 +58,16 @@ class HelpFormController extends Controller implements FormControllerInterface
     /**
      * Обновление страницы помощи администраторам
      *
-     * @param Request $request
+     * @param AddHelp $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function postHelpSave(Request $request): JsonResponse
+    public function postHelpSave(AddHelp $request): JsonResponse
     {
         $result = [
             'success' => true,
             'items' => [],
         ];
+        /** @var ConfigHelp $item */
         $item = null;
         $data = [
             ConfigHelp::NAME => $request->input(ConfigHelp::NAME),
@@ -83,6 +85,8 @@ class HelpFormController extends Controller implements FormControllerInterface
         } else {
             $item = ConfigHelp::create($data);
         }
+
+        array_push($result['items'], $item->getData());
 
         return $this->json($result, __METHOD__);
     }
