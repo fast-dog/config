@@ -42,7 +42,7 @@ class AddHelp extends FormRequest
     {
         return [
             'name' => 'required',
-            'html' => 'required',
+            'text' => 'required',
             'alias' => 'required',
         ];
     }
@@ -54,7 +54,7 @@ class AddHelp extends FormRequest
     {
         return [
             'name.required' => trans('config::requests.add_help.name_required'),
-            'html.required' => trans('config::requests.add_help.html_required'),
+            'text.required' => trans('config::requests.add_help.html_required'),
             'alias.required' => trans('config::requests.add_help.alias_required'),
         ];
     }

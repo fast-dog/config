@@ -235,11 +235,11 @@ class Config
             'new' => '/configuration/help/0'
         ]);
 
-        array_push($result['children'], [
-            'icon' => 'fa-gears',
-            'name' => trans('config::interface.Настройки'),
-            'route' => '/configuration/parameters',
-        ]);
+//        array_push($result['children'], [
+//            'icon' => 'fa-gears',
+//            'name' => trans('config::interface.Настройки'),
+//            'route' => '/configuration/parameters',
+//        ]);
 
         return $result;
     }
