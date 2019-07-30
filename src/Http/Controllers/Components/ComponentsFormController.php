@@ -5,7 +5,7 @@ namespace FastDog\Config\Http\Controllers\Components;
 
 use FastDog\Config\Events\Components\ComponentItemAfterSave;
 use FastDog\Config\Events\Components\ComponentItemBeforeSave;
-use FastDog\Config\Request\AddSiteModule;
+use FastDog\Config\Http\Request\AddSiteModule;
 use FastDog\Core\Form\Interfaces\FormControllerInterface;
 use FastDog\Core\Form\Traits\FormControllerTrait;
 use FastDog\Core\Http\Controllers\Controller;

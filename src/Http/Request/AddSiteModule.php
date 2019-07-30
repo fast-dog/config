@@ -1,8 +1,8 @@
 <?php
 
-namespace FastDog\Config\Request;
+namespace FastDog\Config\Http\Request;
 
-use App\Core\Module\Components;
+
 use FastDog\User\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 

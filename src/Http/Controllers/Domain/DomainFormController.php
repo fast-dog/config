@@ -3,7 +3,7 @@
 namespace FastDog\Config\Http\Controllers\Domain;
 
 
-use FastDog\Config\Request\AddDomain;
+use FastDog\Config\Http\Request\AddDomain;
 use FastDog\Core\Form\Interfaces\FormControllerInterface;
 use FastDog\Core\Form\Traits\FormControllerTrait;
 use FastDog\Core\Http\Controllers\Controller;

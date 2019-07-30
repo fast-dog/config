@@ -1,5 +1,5 @@
 <?php
-namespace FastDog\Config\Request;
+namespace FastDog\Config\Http\Request;
 
 
 use FastDog\Core\Models\Domain;

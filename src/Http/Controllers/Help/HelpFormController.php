@@ -3,7 +3,7 @@
 namespace FastDog\Config\Http\Controllers\Help;
 
 use FastDog\Config\Models\ConfigHelp;
-use FastDog\Config\Request\AddHelp;
+use FastDog\Config\Http\Request\AddHelp;
 use FastDog\Core\Form\Interfaces\FormControllerInterface;
 use FastDog\Core\Form\Traits\FormControllerTrait;
 use FastDog\Core\Http\Controllers\Controller;
