@@ -123,9 +123,9 @@ Route::group([
     ]));
 
     // страница настройки форм
-    \Route::get('/config/form/', array_replace_recursive($baseParameters, [
+    \Route::get('/config/forms/{id}', array_replace_recursive($baseParameters, [
         'uses' => $ctrl . '@getForm',
-    ]));
+    ]))->where('id', '[1-90]+');
 
 //    //страница настроек
 //    \Route::get('/config/admin-info/', array_replace_recursive($baseParameters, [

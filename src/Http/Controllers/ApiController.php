@@ -131,7 +131,7 @@ class ApiController extends Controller
 
         /** @var BaseForm $form */
         $form = BaseForm::where([
-            'id' => $request->input('id'),
+            'id' => \Route::input('id'),
             BaseForm::USER_ID => 0,
         ])->first();
 
@@ -143,6 +143,7 @@ class ApiController extends Controller
 
         if ($form) {
             array_push($result['items'], $form->getData());
+            $result['success'] = true;
         }
 
         return $this->json($result, __METHOD__);
