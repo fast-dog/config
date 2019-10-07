@@ -5,6 +5,7 @@ namespace FastDog\Config\Http\Controllers;
 
 use FastDog\Config\Events\HelpAdminPrepare;
 use FastDog\Config\Models\ConfigHelp;
+use FastDog\Core\Form\BaseForm;
 use FastDog\Core\Http\Controllers\Controller;
 use FastDog\Core\Models\Module;
 use FastDog\Core\Models\ModuleManager;
@@ -81,13 +82,13 @@ class ApiController extends Controller
         $this->page_title = trans('config::interface.Администрирование');
         $this->breadcrumbs->push([
             'url' => false,
-            'name' => trans('config::interface.Настройки')
+            'name' => trans('config::interface.Настройки'),
         ]);
 
         $modules = [];
 
         Module::orderBy(Module::PRIORITY)->get()->each(function (Module $item) use (&$modules) {
-            $item->data =  json_decode($item->data);
+            $item->data = json_decode($item->data);
             array_push($modules, [
                 'id' => $item->id,
                 Module::NAME => $item->{Module::NAME},
@@ -116,6 +117,33 @@ class ApiController extends Controller
          * Список доступа ACL
          */
         array_push($result['items'], []/*Config::getAcl(DomainManager::getSiteId(), strtolower(Config::class))*/);
+
+        return $this->json($result, __METHOD__);
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function getForm(Request $request): JsonResponse
+    {
+        $result = ['success' => false, 'items' => []];
+
+        /** @var BaseForm $form */
+        $form = BaseForm::where([
+            'id' => $request->input('id'),
+            BaseForm::USER_ID => 0,
+        ])->first();
+
+        $this->page_title = trans('config::interface.Администрирование');
+        $this->breadcrumbs->push([
+            'url' => false,
+            'name' => trans('config::interface.Настройка формы'),
+        ]);
+
+        if ($form) {
+            array_push($result['items'], $form->getData());
+        }
 
         return $this->json($result, __METHOD__);
     }

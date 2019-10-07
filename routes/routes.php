@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 Route::group([
     'prefix' => config('core.admin_path', 'admin'),
     'middleware' => ['web', FastDog\Admin\Http\Middleware\Admin::class],
-], function() {
+], function () {
 
     $ctrl = '\FastDog\Config\Http\Controllers\ConfigController';
 
@@ -14,9 +14,7 @@ Route::group([
     $baseParameters = [
 
     ];
-    /**
-     * Домены
-     */
+
     // Домены - список
     \Route::post('/config/domains', array_replace_recursive($baseParameters, [
         'uses' => '\FastDog\Config\Http\Controllers\Domain\DomainTableController@list',
@@ -43,10 +41,7 @@ Route::group([
 
     ]));
 
-    /**
-     * Компоненты публичных страниц (модули)
-     */
-
+    // Компоненты таблица
     $ctrl = '\FastDog\Config\Http\Controllers\Components\ComponentsTableController';
 
     // Компоненты - список компонентов
@@ -54,9 +49,8 @@ Route::group([
         'uses' => $ctrl . '@list',
 
     ]));
-    /**
-     * Компоненты
-     */
+
+    // Компоненты формы
     $ctrl = '\FastDog\Config\Http\Controllers\Components\ComponentsFormController';
 
     // Компоненты - информация о компоненте (публикуемом модуле)
@@ -87,9 +81,7 @@ Route::group([
         'uses' => $ctrl . '@postReplicate',
 
     ]));
-    /**
-     * Почтовые события
-     */
+    // Почтовые события таблица
     $ctrl = '\FastDog\Config\Http\Controllers\Emails\EmailsTableController';
 
     //список почтовых событий
@@ -97,9 +89,7 @@ Route::group([
         'uses' => $ctrl . '@list',
     ]));
 
-    /**
-     * Emails
-     */
+    // Emails форма
     $ctrl = '\FastDog\Config\Http\Controllers\Emails\EmailsFormController';
 
     //обновление параметров почтовых событий
@@ -130,6 +120,11 @@ Route::group([
     \Route::get('/config/help-page/', array_replace_recursive($baseParameters, [
         'uses' => $ctrl . '@getHelpPage',
 
+    ]));
+
+    // страница настройки форм
+    \Route::get('/config/form/', array_replace_recursive($baseParameters, [
+        'uses' => $ctrl . '@getForm',
     ]));
 
 //    //страница настроек
@@ -242,7 +237,7 @@ Route::group([
     /**
      * Очистка кэша, удаление скомпилированных шаблонов
      */
-    \Route::post('/config/clear-cache', function(Request $request) {
+    \Route::post('/config/clear-cache', function (Request $request) {
         switch ($request->input('type')) {
             case 'views':
                 \Artisan::call('view:clear');
