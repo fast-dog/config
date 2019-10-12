@@ -10,10 +10,7 @@ Route::group([
 
     $ctrl = '\FastDog\Config\Http\Controllers\ConfigController';
 
-
-    $baseParameters = [
-
-    ];
+    $baseParameters = [];
 
     // Домены - список
     \Route::post('/config/domains', array_replace_recursive($baseParameters, [
@@ -111,9 +108,7 @@ Route::group([
     ]));
 
 
-    /**
-     * АПИ
-     */
+    // АПИ
     $ctrl = '\FastDog\Config\Http\Controllers\ApiController';
 
     //страница помощи
@@ -126,6 +121,11 @@ Route::group([
     \Route::get('/config/forms/{id}', array_replace_recursive($baseParameters, [
         'uses' => $ctrl . '@getForm',
     ]))->where('id', '[1-90]+');
+
+    // Добавление\Сохранение дополнительного параметра
+    \Route::post('/config/save-property', array_replace_recursive($baseParameters, [
+        'uses' => $ctrl . '@postSaveProperty',
+    ]));
 
 //    //страница настроек
 //    \Route::get('/config/admin-info/', array_replace_recursive($baseParameters, [

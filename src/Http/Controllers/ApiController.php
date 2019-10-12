@@ -6,6 +6,7 @@ namespace FastDog\Config\Http\Controllers;
 use FastDog\Config\Events\HelpAdminPrepare;
 use FastDog\Config\Models\ConfigHelp;
 use FastDog\Core\Form\BaseForm;
+use FastDog\Core\Form\Traits\FormControllerTrait;
 use FastDog\Core\Http\Controllers\Controller;
 use FastDog\Core\Models\Module;
 use FastDog\Core\Models\ModuleManager;
@@ -22,6 +23,7 @@ use Illuminate\Http\Request;
  */
 class ApiController extends Controller
 {
+    use FormControllerTrait;
 
     /**
      * ConfigController constructor.
@@ -147,5 +149,15 @@ class ApiController extends Controller
         }
 
         return $this->json($result, __METHOD__);
+    }
+
+    /**
+     * Добавление\Сохранение дополнительного параметра
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function postSaveProperty(Request $request): JsonResponse
+    {
+        return $this->saveProperty($request);
     }
 }
