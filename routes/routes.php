@@ -127,6 +127,15 @@ Route::group([
         'uses' => $ctrl . '@postSaveProperty',
     ]));
 
+    // Удаление значения дополнительного параметра
+    \Route::post('/content/delete-select-value', array_replace_recursive($baseParameters, [
+        'uses' => $ctrl . '@postDeleteSelectValue',
+    ]));
+
+    // Добавление значения дополнительного параметра
+    \Route::post('/content/add-select-value', array_replace_recursive($baseParameters, [
+        'uses' => $ctrl . '@postAddSelectValue',
+    ]));
 //    //страница настроек
 //    \Route::get('/config/admin-info/', array_replace_recursive($baseParameters, [
 //        'uses' => $ctrl . '@getAdminInfo',
