@@ -8,6 +8,7 @@ use FastDog\Config\Models\ConfigHelp;
 use FastDog\Core\Form\BaseForm;
 use FastDog\Core\Form\Traits\FormControllerTrait;
 use FastDog\Core\Http\Controllers\Controller;
+use FastDog\Core\Models\BaseModel;
 use FastDog\Core\Models\Module;
 use FastDog\Core\Models\ModuleManager;
 use FastDog\User\Models\User;
@@ -31,6 +32,8 @@ class ApiController extends Controller
     public function __construct()
     {
         parent::__construct();
+
+        $this->model = new BaseModel();
     }
 
     /**
