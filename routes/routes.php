@@ -128,12 +128,12 @@ Route::group([
     ]));
 
     // Удаление значения дополнительного параметра
-    \Route::post('/content/delete-select-value', array_replace_recursive($baseParameters, [
+    \Route::post('/config/delete-select-value', array_replace_recursive($baseParameters, [
         'uses' => $ctrl . '@postDeleteSelectValue',
     ]));
 
     // Добавление значения дополнительного параметра
-    \Route::post('/content/add-select-value', array_replace_recursive($baseParameters, [
+    \Route::post('/config/add-select-value', array_replace_recursive($baseParameters, [
         'uses' => $ctrl . '@postAddSelectValue',
     ]));
 //    //страница настроек
