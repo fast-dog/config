@@ -127,6 +127,7 @@ class ApiController extends Controller
     }
 
     /**
+     * Получение данных формы для конструктора
      * @param Request $request
      * @return JsonResponse
      */
@@ -148,6 +149,35 @@ class ApiController extends Controller
 
         if ($form) {
             array_push($result['items'], $form->getData());
+            $result['success'] = true;
+        }
+
+        return $this->json($result, __METHOD__);
+    }
+
+    /**
+     * Сохранение формы с конструктора
+     *  
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function postForm(Request $request): JsonResponse
+    {
+        $result = ['success' => false, 'items' => []];
+
+        /** @var BaseForm $form */
+        $form = BaseForm::where([
+            'id' => \Route::input('id'),
+            BaseForm::USER_ID => 0,
+        ])->first();
+
+        if ($form) {
+            BaseForm::where('id', $form->id)->update([
+                BaseForm::DATA => json_decode([
+                    'form' => $request->input('form'),
+                    'preset' => $request->input('preset'),
+                ]),
+            ]);
             $result['success'] = true;
         }
 

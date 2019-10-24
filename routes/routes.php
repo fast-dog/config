@@ -122,6 +122,11 @@ Route::group([
         'uses' => $ctrl . '@getForm',
     ]))->where('id', '[1-90]+');
 
+    // страница настройки форм
+    \Route::post('/config/forms/{id}', array_replace_recursive($baseParameters, [
+        'uses' => $ctrl . '@postForm',
+    ]))->where('id', '[1-90]+');
+
     // Добавление\Сохранение дополнительного параметра
     \Route::post('/config/save-property', array_replace_recursive($baseParameters, [
         'uses' => $ctrl . '@postSaveProperty',
@@ -154,7 +159,7 @@ Route::group([
 //
 //    ]));
 
-    /**
+    /*
      * Локализация - таблица
      */
     $ctrl = '\FastDog\Config\Http\Controllers\Localization\LocalizationTableController';
@@ -164,7 +169,7 @@ Route::group([
 
     ]));
 
-    /**
+    /*
      * Локализация - форма редактирования
      */
     $ctrl = '\FastDog\Config\Http\Controllers\Localization\LocalizationFormController';
@@ -211,7 +216,7 @@ Route::group([
 
 //
 
-    /**
+    /*
      * Помощь администраторам - таблица
      */
     $ctrl = '\FastDog\Config\Http\Controllers\Help\HelpTableController';
@@ -227,7 +232,7 @@ Route::group([
 
     ]));
 
-    /**
+    /*
      * Помощь администраторам - форма
      */
     $ctrl = '\FastDog\Config\Http\Controllers\Help\HelpFormController';
@@ -243,7 +248,7 @@ Route::group([
 
     ]));
 
-    /**
+    /*
      * Очистка кэша, удаление скомпилированных шаблонов
      */
     \Route::post('/config/clear-cache', function (Request $request) {
