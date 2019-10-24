@@ -173,7 +173,7 @@ class ApiController extends Controller
 
         if ($form) {
             BaseForm::where('id', $form->id)->update([
-                BaseForm::DATA => json_decode([
+                BaseForm::DATA => json_encode([
                     'form' => $request->input('form'),
                     'preset' => $request->input('preset'),
                 ]),
