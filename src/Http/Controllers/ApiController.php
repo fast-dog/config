@@ -143,7 +143,7 @@ class ApiController extends Controller
         $this->page_title = trans('config::interface.Администрирование');
         $this->breadcrumbs->push([
             'url' => false,
-            'name' => trans('config::interface.Настройка формы'),
+            'name' => trans('config::interface.Настройка формы') . ' :: ' . $form->{BaseForm::NAME},
         ]);
 
         if ($form) {
