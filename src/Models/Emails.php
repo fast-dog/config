@@ -2,7 +2,6 @@
 
 namespace FastDog\Config\Models;
 
-
 use FastDog\Config\Events\MailAdminPrepare;
 use FastDog\Core\Media\Interfaces\MediaInterface;
 use FastDog\Core\Media\Traits\MediaTraits;
@@ -29,25 +28,25 @@ use stdClass;
 class Emails extends BaseModel implements TableModelInterface, PropertiesInterface, MediaInterface
 {
     use PropertiesTrait, MediaTraits;
-
+    
     /**
      * Текст шаблона
      * @const string
      */
     const  TEXT = 'text';
-
+    
     /**
      * Имя таблицы в базе данных
      * @var string $table 'config_emails'
      */
     public $table = 'config_emails';
-
+    
     /**
      * Массив полей автозаполнения
      * @var array $fillable
      */
     public $fillable = [self::NAME, self::ALIAS, self::TEXT, self::DATA, self::STATE, self::SITE_ID];
-
+    
     /**
      * Детальная информация по объекту
      *
@@ -58,9 +57,9 @@ class Emails extends BaseModel implements TableModelInterface, PropertiesInterfa
         if (is_string($this->{self::DATA})) {
             $this->{self::DATA} = json_decode($this->{self::DATA});
         }
-
+        
         $data = [
-            'id' => (int)$this->id,
+            'id' => (int) $this->id,
             self::NAME => $this->{self::NAME},
             self::ALIAS => $this->{self::ALIAS},
             self::STATE => $this->{self::STATE},
@@ -68,16 +67,16 @@ class Emails extends BaseModel implements TableModelInterface, PropertiesInterfa
             self::DATA => $this->{self::DATA},
             self::SITE_ID => $this->{self::SITE_ID},
         ];
-
+        
         return $data;
     }
-
-
+    
+    
     /**
      * Отправка системных сообщений
      *
-     * @param null|StdClass|BaseModel $name имя шаблона или объект с полем text для отправки
-     * @param array $params
+     * @param  null|StdClass|BaseModel  $name  имя шаблона или объект с полем text для отправки
+     * @param  array  $params
      * @return bool
      */
     public static function send($name = null, $params = ['title' => 'title message'])
@@ -86,7 +85,7 @@ class Emails extends BaseModel implements TableModelInterface, PropertiesInterfa
             return false;
         }
         $text = null;
-
+        
         /**
          * Проверка настроек пользователя
          */
@@ -97,31 +96,34 @@ class Emails extends BaseModel implements TableModelInterface, PropertiesInterfa
                 }
             }
         }
-
-
+        
         if (is_string($name)) {
             /**@var $tpl self */
-            $tpl = self::where(function(Builder $query) use ($name, $params) {
+            $tpl = self::where(function (Builder $query) use ($name, $params) {
                 $query->where(self::ALIAS, $name);
                 $query->where(self::STATE, self::STATE_PUBLISHED);
                 if (isset($params[self::SITE_ID])) {
                     $query->where(self::SITE_ID, $params[self::SITE_ID]);
                 }
             })->first();
-
+            
             if (isset($tpl->text)) {
                 $text = $tpl->text;
             }
-
-        } else if ($name instanceof StdClass) {
-            $tpl = new self();
-            $text = $name->text;
-        } else if ($name instanceof BaseModel && isset($name->text)) {
-            $tpl = $name;
-            $text = $name->text;
+            
+        } else {
+            if ($name instanceof StdClass) {
+                $tpl = new self();
+                $text = $name->text;
+            } else {
+                if ($name instanceof BaseModel && isset($name->text)) {
+                    $tpl = $name;
+                    $text = $name->text;
+                }
+            }
         }
         $text = str_replace('&gt;', '>', $text);
-
+        
         if ($text) {
             foreach ($params as $key => $value) {
                 $key = strtoupper($key);
@@ -136,18 +138,18 @@ class Emails extends BaseModel implements TableModelInterface, PropertiesInterfa
                     }
                 }
             }
-
+            
             $params['content'] = $text;
             $params['title'] = $tpl->getParameterByFilterData(['name' => 'TITLE'], '');
             $params['title_header'] = $tpl->getParameterByFilterData(['name' => 'TITLE_HEADER'], '');
-
-            $result = \Mail::send('core::email.system', $params,
-                function($message) use ($tpl, $params) {
+            
+            $result = \Mail::send('vendor.fast_dog.000.core.email.system', $params,
+                function ($message) use ($tpl, $params) {
                     if (!isset($params['to'])) {
                         $params['to'] = $tpl->getParameterByFilterData(['name' => 'TO_ADDRESS'], null);
                     }
                     $message->to($params['to']);
-
+                    
                     $message->from($tpl->getParameterByFilterData(['name' => 'FROM_ADDRESS'], config('mail.from.address')),
                         $tpl->getParameterByFilterData(['name' => 'FROM_NAME'], config('mail.from.name')));
                     if (!isset($params['subject'])) {
@@ -155,14 +157,14 @@ class Emails extends BaseModel implements TableModelInterface, PropertiesInterfa
                     } else {
                         $message->subject($params['subject']);
                     }
-
+                    
                 });
-
+            
             return $result;
         }
     }
-
-
+    
+    
     /**
      * Возвращает имя события вызываемого при обработке данных при передаче на клиент в разделе администрирования
      * @return string
@@ -171,7 +173,7 @@ class Emails extends BaseModel implements TableModelInterface, PropertiesInterfa
     {
         return MailAdminPrepare::class;
     }
-
+    
     /**
      * Возвращает описание доступных полей для вывода в колонки...
      *
@@ -205,7 +207,7 @@ class Emails extends BaseModel implements TableModelInterface, PropertiesInterfa
             ],
         ];
     }
-
+    
     /**
      * @return array
      */
@@ -222,10 +224,10 @@ class Emails extends BaseModel implements TableModelInterface, PropertiesInterfa
                 ],
             ],
         ];
-
+        
         return $default;
     }
-
+    
     /**
      * @return Collection
      *
@@ -285,7 +287,7 @@ class Emails extends BaseModel implements TableModelInterface, PropertiesInterfa
                 ]),
             ],
         ];
-
+        
         return collect($result);
     }
 }
