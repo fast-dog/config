@@ -4,7 +4,7 @@ namespace FastDog\Config\Listeners\Components;
 
 
 use FastDog\Config\Events\Components\ComponentItemAdminPrepare as PublicModulesItemAdminPrepareEvent;
-use FastDog\Core\Events\GetComponentType;
+use FastDog\Core\Events\GetComponentTypeFields;
 use FastDog\Core\Models\Components;
 use FastDog\Core\Models\DomainManager;
 use FastDog\Core\Models\FormFieldTypes;
@@ -123,7 +123,7 @@ class ComponentItemSetEditForm
                 'option_group' => true,
             ],
         ];
-        event(new GetComponentType($defaultType));
+        event(new GetComponentTypeFields($defaultType));
 
         $result['form'] = [
             'create_url' => 'config/component/add',
@@ -131,22 +131,13 @@ class ComponentItemSetEditForm
             'help' => 'component_item',
             'tabs' => (array)[
                 (object)[
-                    'id' => 'catalog-item-general-tab',
+                    'id' => 'config-components-item-general-tab',
                     'name' => trans('config::forms.components.general.title'),
                     'active' => true,
                     'fields' => $defaultType,
 
                     //  (array)[
-//                        [
-//                            'id' => 'item_id',
-//                            'type' => FormFieldTypes::TYPE_SELECT,
-//                            'name' => 'item_id',
-//                            'form_group' => false,
-//                            'label' => trans('app.Пункт меню навигации'),
-//                            'items' => $this->getMenuTree(),
-//                            'option_group' => false,
-//                            'expression' => 'function(item){ return (item.type.id == "menu::item") }',
-//                        ],
+
 //                        [
 //                            'id' => 'html',
 //                            'type' => FormFieldTypes::TYPE_CODE_EDITOR,
