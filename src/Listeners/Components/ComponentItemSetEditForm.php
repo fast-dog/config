@@ -139,14 +139,6 @@ class ComponentItemSetEditForm
                     //  (array)[
 
 //                        [
-//                            'id' => 'html',
-//                            'type' => FormFieldTypes::TYPE_CODE_EDITOR,
-//                            'name' => 'html',
-//                            'css_class' => 'col-sm-12 m-t-xs',
-//                            'label' => trans('app.Html содержимое'),
-//                            'expression' => 'function(item){ return (item.type.id == "core::html") }',
-//                        ],
-//                        [
 //                            'id' => 'item_id',
 //                            'type' => FormFieldTypes::TYPE_SELECT,
 //                            'name' => 'item_id',

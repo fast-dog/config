@@ -2,8 +2,9 @@
 namespace FastDog\Config\Listeners\Components;
 
 
-use App\Core\Module\Components;
+
 use FastDog\Config\Events\Components\ComponentItemBeforeSave as EventComponentItemBeforeSave;
+use FastDog\Core\Models\Components;
 use Illuminate\Http\Request;
 
 /**
