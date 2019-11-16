@@ -4,6 +4,7 @@ namespace FastDog\Config\Models;
 
 use FastDog\Config\Events\Localization\LocalizationAdminPrepare;
 use FastDog\Core\Models\BaseModel;
+use FastDog\Core\Models\Cache;
 use FastDog\Core\Models\DomainManager;
 use FastDog\Core\Store;
 use FastDog\Core\Table\Filters\BaseFilter;
@@ -94,38 +95,20 @@ class Translate extends BaseModel implements TableModelInterface
     public static function getSegment($code, $translate, $update = false)
     {
         $key = __METHOD__ . '::' . DomainManager::getSiteId() . '::core-translate-' . $code;
-        $isRedis = config('cache.default') == 'redis';
-        $result = ($isRedis) ? \Cache::tags(['core'])->get($key, null) : \Cache::get($key, null);
-        if ($update || \Request::input('reload_language_segment', 'N') === 'Y') {
-            $result = null;
-        }
-        if ($result === null) {
-            /**
-             * @var $items Collection
-             */
-            $items = self::where(self::CODE, $code)->get();
-            if ($items->isEmpty()) {
-                foreach ($translate as $key => $value) {
-                    if ($key !== '') {
-                        self::create([
-                            self::CODE => $code,
-                            self::KEY => $key,
-                            self::VALUE => $value,
-                            self::SITE_ID => DomainManager::getSiteId(),
-                        ]);
-                    }
-                }
-                $result = $translate;
-            } else {
-                foreach ($items as $item) {
-                    $result[$item->{self::KEY}] = $item->{self::VALUE};
-                    unset($translate[$item->{self::KEY}]);
-                }
-                if (count($translate)) {
+
+        return app()->make(Cache::class)->get($key, function() use ($update, $translate, $code) {
+            if ($update || \Request::input('reload_language_segment', 'N') === 'Y') {
+                $result = null;
+            }
+            if ($result === null) {
+                /**
+                 * @var $items Collection
+                 */
+                $items = self::where(self::CODE, $code)->get();
+                if ($items->isEmpty()) {
                     foreach ($translate as $key => $value) {
                         if ($key !== '') {
-                            $result[$key] = $value;
-                            self::firstOrCreate([
+                            self::create([
                                 self::CODE => $code,
                                 self::KEY => $key,
                                 self::VALUE => $value,
@@ -133,16 +116,31 @@ class Translate extends BaseModel implements TableModelInterface
                             ]);
                         }
                     }
-                }
-                if ($isRedis) {
-                    \Cache::tags(['core'])->put($key, $result, config('cache.tll_translate', 1));
+                    $result = $translate;
                 } else {
-                    \Cache::put($key, $result, config('cache.tll_translate', 1));
+                    foreach ($items as $item) {
+                        $result[$item->{self::KEY}] = $item->{self::VALUE};
+                        unset($translate[$item->{self::KEY}]);
+                    }
+                    if (count($translate)) {
+                        foreach ($translate as $key => $value) {
+                            if ($key !== '') {
+                                $result[$key] = $value;
+                                self::firstOrCreate([
+                                    self::CODE => $code,
+                                    self::KEY => $key,
+                                    self::VALUE => $value,
+                                    self::SITE_ID => DomainManager::getSiteId(),
+                                ]);
+                            }
+                        }
+                    }
+
                 }
             }
-        }
+            return $result;
+        }, ['core']);
 
-        return $result;
     }
 
     /**
